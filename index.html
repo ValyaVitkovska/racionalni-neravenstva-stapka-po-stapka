@@ -77,47 +77,14 @@ body.light .dp-btn.wrong {border-color:var(--danger)!important; background:rgba(
 .theme-toggle:hover{background:rgba(255,255,255,.25);}
 body.light .theme-toggle{background:rgba(0,0,0,.1);border-color:rgba(0,0,0,.15);color:#fff;}
 
-/* ── factored rewrite step ── */
-.factored-hint{
-  font-size:.88rem;color:var(--text3);margin-bottom:10px;line-height:1.55;
-}
-.factored-kbd{
-  display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 5px;
-  padding:9px 11px;background:var(--bg4);border-radius:9px;border:1px solid var(--border);
-}
-.factored-kbd button{
-  background:var(--bg3);border:1px solid var(--border2);border-radius:7px;
-  padding:5px 10px;font-size:.93rem;font-family:'STIX Two Math','Times New Roman',serif;
-  cursor:pointer;min-width:34px;font-weight:600;color:var(--text2);transition:all .12s;
-}
-.factored-kbd button:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
-.factored-kbd .kbd-sep{width:1px;background:var(--border);margin:0 3px;align-self:stretch;}
-.factored-kbd .kbd-del{color:var(--danger);border-color:rgba(231,76,60,.3);}
-.factored-kbd .kbd-del:hover{background:var(--danger);color:#fff;}
-body.light .factored-kbd{background:var(--bg4);}
-body.light .factored-kbd button{background:#fff;color:var(--text);border-color:var(--border2);}
-
 /* √ mathematical notation */
 .sqrt-wrap{
   display:inline-flex;align-items:flex-end;
   font-family:'STIX Two Math','Times New Roman',serif;
   font-style:italic;vertical-align:middle;
 }
-.sqrt-wrap .sqrt-sym{
-  font-size:1.25em;
-  font-style:normal;
-  line-height:1;
-  display:inline-block;
-  margin-bottom:-0.05em;
-}
-.sqrt-wrap .sqrt-arg{
-  border-top:1.8px solid currentColor;
-  padding:0 3px 0 0;
-  margin-left:-1px;
-  line-height:1.3;
-  display:inline-block;
-  min-width:0.3em;
-}
+.sqrt-wrap .sqrt-sym{font-size:1.25em;font-style:normal;line-height:1;display:inline-block;margin-bottom:-0.05em;}
+.sqrt-wrap .sqrt-arg{border-top:1.8px solid currentColor;padding:0 3px 0 0;margin-left:-1px;line-height:1.3;display:inline-block;min-width:0.3em;}
 
 /* ── Score panel overrides for card container ── */
 .score-panel{
@@ -135,8 +102,8 @@ body.light .factored-kbd button{background:#fff;color:var(--text);border-color:v
 .score-pct{font-size:1.05rem;font-weight:800;color:#f1c40f;}
 .timer-val{font-size:1rem;font-weight:800;font-variant-numeric:tabular-nums;
   color:var(--text);transition:color .3s;}
-.timer-val.warn{color:#f39c12;animation:pulse .8s infinite;}
-.timer-val.danger{color:#e74c3c;animation:pulse .5s infinite;}
+.timer-val.warn{color:#f39c12;}
+.timer-val.danger{color:#e74c3c;}
 
 body.light .score-panel{background:#fff;border-color:var(--border);}
 body.light .score-seg{color:var(--text);border-color:var(--border);}
@@ -155,6 +122,13 @@ body.light .timer-val{color:var(--text);}
   font-weight:600;color:#f09090;transition:all .2s;
 }
 .btn-reset:hover{background:rgba(231,76,60,.3);}
+.btn-menu{
+  background:rgba(91,110,245,.15);border:1px solid rgba(91,110,245,.3);
+  border-radius:8px;padding:6px 14px;cursor:pointer;font-size:.85rem;
+  font-weight:600;color:#8ba0ff;transition:all .2s;
+}
+.btn-menu:hover{background:rgba(91,110,245,.3);}
+body.light .btn-menu{color:var(--accent);border-color:rgba(64,85,232,.3);}
 
 /* task result toast */
 .task-toast{
@@ -389,8 +363,7 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
 .ans-row label{font-weight:700;font-size:1rem;font-family:'STIX Two Math','Times New Roman',serif;font-style:italic;white-space:nowrap;color:var(--text2);}
 
 /* feedback */
-.fb-emoji{font-size:1.8rem;animation:popIn .4s;flex-shrink:0;}
-.fb{display:flex;align-items:flex-start;gap:10px;margin-top:9px;padding:9px 13px;border-radius:9px;font-weight:600;font-size:.93rem;animation:slideUp .3s;}
+.fb{display:flex;align-items:center;gap:10px;margin-top:9px;padding:9px 13px;border-radius:9px;font-weight:600;font-size:.93rem;animation:slideUp .3s;}
 .fb.ok  {background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);color:#6dde9f;}
 .fb.err {background:rgba(231,76,60,.1); border:1px solid rgba(231,76,60,.25);color:#f09090;}
 .fb.part{background:rgba(243,156,18,.1);border:1px solid rgba(243,156,18,.25);color:#f5c97a;}
@@ -444,10 +417,6 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
 .quad-comment b{color:var(--text);}
 
 /* ── quad discovery dialog ── */
-.qdlg-wrap{
-  background:rgba(91,110,245,.06);border:1px solid rgba(91,110,245,.22);
-  border-radius:10px;margin:0 0 16px;overflow:hidden;
-}
 .qdlg-q{
   padding:12px 16px;display:flex;align-items:flex-start;gap:10px;
   border-bottom:1px solid rgba(91,110,245,.12);
@@ -456,16 +425,6 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
 .qdlg-icon{font-size:1.2rem;margin-top:1px;flex-shrink:0;}
 .qdlg-text{font-size:.92rem;color:var(--text2);line-height:1.5;flex:1;}
 .qdlg-text b{color:var(--text);}
-.qdlg-input-row{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;}
-.qdlg-input{
-  width:80px;text-align:center;font-size:1rem;
-  font-family:'STIX Two Math','Times New Roman',serif;font-style:italic;
-  padding:5px 8px;background:var(--bg4);border:1.5px solid var(--border2);
-  border-radius:8px;color:var(--text);transition:.18s;outline:none;
-}
-.qdlg-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,110,245,.2);}
-.qdlg-input.ok {border-color:var(--success);background:rgba(46,204,113,.08);}
-.qdlg-input.err{border-color:var(--danger); background:rgba(231,76,60,.08);animation:shake .3s ease;}
 .qdlg-sel{
   background:var(--bg4);border:1.5px solid var(--border2);border-radius:8px;
   color:var(--text);padding:6px 10px;font-size:.9rem;outline:none;cursor:pointer;transition:.15s;
@@ -473,29 +432,15 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
 .qdlg-sel:focus{border-color:var(--accent);}
 .qdlg-sel.ok {border-color:var(--success);background:rgba(46,204,113,.08);color:#6dde9f;}
 .qdlg-sel.err{border-color:var(--danger); background:rgba(231,76,60,.08);color:#f09090;}
-.qdlg-fb{font-size:1rem;font-weight:600;}
-.qdlg-fb.ok {color:var(--success);}
-.qdlg-fb.err{color:var(--danger);}
-.qdlg-locked{display:none!important;}
 .qdlg-btn{
   padding:6px 16px;border:none;border-radius:8px;font-size:.88rem;cursor:pointer;
   font-weight:700;background:linear-gradient(135deg,#5b6ef5,#3a4ccc);color:#fff;
   transition:all .18s;box-shadow:0 3px 8px rgba(91,110,245,.3);
 }
 .qdlg-btn:hover{transform:translateY(-2px);filter:brightness(1.1);}
-.qdlg-conclusion{
-  padding:10px 16px;background:rgba(46,204,113,.08);border-top:1px solid rgba(46,204,113,.2);
-  font-size:.9rem;color:#6dde9f;font-weight:600;display:none;align-items:center;gap:8px;
-}
-.qdlg-conclusion.show{display:flex;animation:slideUp .3s ease-out;}
 
-.intro-box{
-  text-align:center; padding: 20px 24px 22px;
-}
-.intro-img{
-  max-height: 500px; /* Увеличено от 260px на 500px за по-голямо изображение */
-  max-width: 100%; object-fit: contain; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
+.intro-box{text-align:center; padding: 20px 24px 22px;}
+.intro-img{max-height: 500px; max-width: 100%; object-fit: contain; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);}
 
 .hidden{display:none!important;}
 @media(max-width:600px){.expr-display{font-size:1.45rem;}.ans-display{min-width:180px;}}
@@ -510,51 +455,53 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
 
 <div class="container">
 
-  <!-- ══ УКАЗАНИЯ ══ -->
-  <div class="card intro-box">
-    <img src="RNSS.png" alt="Тренажор стъпка по стъпка" class="intro-img" onerror="this.style.display='none'">
-    <div style="font-size: 0.85rem; color: var(--text3); margin-bottom: 16px; font-style: italic;">
-      Идея и педагогически решения: Валя Витковка &nbsp;|&nbsp; Реализация: Gemini, Claude
+  <!-- ══ УКАЗАНИЯ И ТАБОВЕ (МЕНЮ) ══ -->
+  <div id="menu-section">
+    <div class="card intro-box">
+      <img src="RNSS.png" alt="Тренажор стъпка по стъпка" class="intro-img" onerror="this.style.display='none'">
+      <div style="font-size: 0.85rem; color: var(--text3); margin-bottom: 16px; font-style: italic;">
+        Идея и педагогически решения: Валя Витковка &nbsp;|&nbsp; Реализация: Gemini, Claude
+      </div>
+      <p style="font-size: 0.95rem; color: var(--text2); max-width: 800px; margin: 0 auto; line-height: 1.6;">
+        <b>Указания за работа:</b> Изберете вид неравенство от разделите по-долу и генерирайте задача. Можете да се опитате да я решите сами или да използвате режима <b>„Стъпка по стъпка“</b> за детайлни насоки (всяка подсказка отнема точки). Резултатът се натрупва във вид на <b>оценка</b>.
+      </p>
     </div>
-    <p style="font-size: 0.95rem; color: var(--text2); max-width: 800px; margin: 0 auto; line-height: 1.6;">
-      <b>Указания за работа:</b> Изберете вид неравенство от разделите по-долу и генерирайте задача. Можете да се опитате да я решите сами или да използвате режима <b>„Стъпка по стъпка“</b> за детайлни насоки (всяка подсказка отнема точки). Ако изпитвате затруднения и използвате бутона <b>„Покажи решението“</b>, няма да получите точки за текущата задача, след което лесно можете да генерирате нова.
-    </p>
+
+    <div class="tab-cards">
+      <div class="tab-card active" data-tab="linear" onclick="switchTab('linear')">
+        <span class="tab-icon">🔢</span>
+        <div class="tab-name">Линейни множители</div>
+        <div class="tab-desc">Включва задачи с еквивалентна форма</div>
+      </div>
+      <div class="tab-card" data-tab="quadfactor" onclick="switchTab('quadfactor')">
+        <span class="tab-icon">🔵</span>
+        <div class="tab-name">Квадратни множители</div>
+        <div class="tab-desc">Δ &lt; 0 и Δ ≥ 0 (разлагане)</div>
+      </div>
+      <div class="tab-card" data-tab="biquad" onclick="switchTab('biquad')">
+        <span class="tab-icon">∞</span>
+        <div class="tab-name">Биквадратни</div>
+        <div class="tab-desc">ax⁴ + bx² + c — замяна t = x²</div>
+      </div>
+      <div class="tab-card" data-tab="fractional" onclick="switchTab('fractional')">
+        <span class="tab-icon">➗</span>
+        <div class="tab-name">Дробни неравенства</div>
+        <div class="tab-desc">f(x)/g(x) с различни типове множители</div>
+      </div>
+    </div>
   </div>
 
   <!-- ══ СТАТИСТИКА И БУТОНИ ══ -->
   <div class="card" style="display:flex;justify-content:center;gap:14px;align-items:center;flex-wrap:wrap;padding:16px 20px;margin-bottom:24px;">
     <div class="score-panel">
-      <div class="score-seg">⏱ <span class="timer-val" id="hdr-timer">–</span></div>
+      <div class="score-seg">⏱ <span class="timer-val" id="hdr-timer">0:00</span></div>
       <div class="score-seg">✅ <span class="val" id="hdr-solved">0</span></div>
       <div class="score-seg">❌ <span class="val" id="hdr-hints">0</span> подск.</div>
-      <div class="score-seg">📊 <span class="score-pct" id="hdr-pct">–</span></div>
+      <div class="score-seg">🎓 Оценка: <span class="score-pct" id="hdr-pct" style="margin-left:5px;">–</span></div>
     </div>
     <button class="btn-hint-pts" id="btn-global-hint" onclick="useHint()" disabled title="−10 точки">💡 Подсказка (−10т)</button>
+    <button class="btn-menu" onclick="returnToMenu()">🏠 Меню</button>
     <button class="btn-reset" onclick="confirmReset()">🔄 Нулирай</button>
-  </div>
-
-  <!-- ══ TAB CARDS ══ -->
-  <div class="tab-cards">
-    <div class="tab-card active" data-tab="linear" onclick="switchTab('linear')">
-      <span class="tab-icon">🔢</span>
-      <div class="tab-name">Линейни множители</div>
-      <div class="tab-desc">Включва задачи с еквивалентна форма</div>
-    </div>
-    <div class="tab-card" data-tab="quadfactor" onclick="switchTab('quadfactor')">
-      <span class="tab-icon">🔵</span>
-      <div class="tab-name">Квадратни множители</div>
-      <div class="tab-desc">Δ &lt; 0 и Δ ≥ 0 (разлагане)</div>
-    </div>
-    <div class="tab-card" data-tab="biquad" onclick="switchTab('biquad')">
-      <span class="tab-icon">∞</span>
-      <div class="tab-name">Биквадратни</div>
-      <div class="tab-desc">ax⁴ + bx² + c — замяна t = x²</div>
-    </div>
-    <div class="tab-card" data-tab="fractional" onclick="switchTab('fractional')">
-      <span class="tab-icon">➗</span>
-      <div class="tab-name">Дробни неравенства</div>
-      <div class="tab-desc">f(x)/g(x) с различни типове множители</div>
-    </div>
   </div>
 
   <!-- ══════════ TAB: LINEAR ══════════ -->
@@ -562,21 +509,12 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
     <div class="card">
       <div class="controls-bar">
         <span class="ctrl-label">Брой линейни множители:</span>
-        <select class="ctrl-select" id="lin-count">
-          <option value="2">2</option><option value="3" selected>3</option>
-          <option value="4">4</option><option value="5">5</option>
-        </select>
+        <select class="ctrl-select" id="lin-count"><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select>
         <span class="ctrl-label">Знак:</span>
-        <select class="ctrl-select" id="lin-sign">
-          <option value="random">Случаен</option>
-          <option value=">">&gt; 0</option>
-          <option value="<">&lt; 0</option>
-          <option value=">=">&ge; 0</option>
-          <option value="<=">&le; 0</option>
-        </select>
-        <label class="ctrl-check"><input type="checkbox" id="lin-powers" checked> Включи степени (², ³, ⁴, ⁵...)</label>
-        <label class="ctrl-check"><input type="checkbox" id="lin-frac"> Дробни корени (½, ⅓…)</label>
-        <button class="btn btn-gen" onclick="genLinear()">🎲 Следваща задача</button>
+        <select class="ctrl-select" id="lin-sign"><option value="random">Случаен</option><option value=">">&gt; 0</option><option value="<">&lt; 0</option><option value=">=">&ge; 0</option><option value="<=">&le; 0</option></select>
+        <label class="ctrl-check"><input type="checkbox" id="lin-powers" checked> Степени</label>
+        <label class="ctrl-check"><input type="checkbox" id="lin-frac"> Дробни</label>
+        <button class="btn btn-gen" onclick="genLinear()">🎲 Генерирай задача</button>
       </div>
       <div id="lin-problem" class="hidden">
         <div class="expr-display" id="lin-expr"></div>
@@ -584,10 +522,7 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
           <button class="btn btn-show" id="lin-btn-ans" onclick="showLinearAnswer()">👁 Покажи решението</button>
           <button class="btn btn-sbs"  id="lin-btn-sbs" onclick="toggleLinearSBS()">📋 Стъпка по стъпка</button>
         </div>
-        <div id="lin-answer-area" class="hidden" style="text-align:center;margin-top:20px;">
-          <div id="lin-nl"></div>
-          <div style="margin-top:18px;"><span class="answer-result" id="lin-ans-text"></span></div>
-        </div>
+        <div id="lin-answer-area" class="hidden" style="text-align:center;margin-top:20px;"><div id="lin-nl"></div><div style="margin-top:18px;"><span class="answer-result" id="lin-ans-text"></span></div></div>
         <div id="lin-sbs" class="hidden"></div>
       </div>
     </div>
@@ -596,29 +531,13 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
   <!-- ══════════ TAB: QUAD FACTOR ══════════ -->
   <div id="tab-quadfactor" class="tab-panel">
     <div class="card">
-      <div class="note">
-        <b>D &gt; 0:</b> два реални корена — множителят сменя знак &nbsp;|&nbsp;
-        <b>D = 0:</b> двоен корен — знакът се запазва (◆) &nbsp;|&nbsp;
-        <b>D &lt; 0:</b> без реални корени — знакът е константен
-      </div>
       <div class="controls-bar">
         <span class="ctrl-label">Тип:</span>
-        <select class="ctrl-select" id="qf-type">
-          <option value="random">Случаен</option>
-          <option value="pos">D &gt; 0 (два корена)</option>
-          <option value="zero">D = 0 (двоен корен)</option>
-          <option value="neg">D &lt; 0 (без реални корени)</option>
-        </select>
+        <select class="ctrl-select" id="qf-type"><option value="random">Случаен</option><option value="pos">D &gt; 0 (два корена)</option><option value="zero">D = 0 (двоен корен)</option><option value="neg">D &lt; 0 (без реални корени)</option></select>
         <span class="ctrl-label">Знак:</span>
-        <select class="ctrl-select" id="qf-sign">
-          <option value="random">Случаен</option>
-          <option value=">">&gt; 0</option>
-          <option value="<">&lt; 0</option>
-          <option value=">=">&ge; 0</option>
-          <option value="<=">&le; 0</option>
-        </select>
+        <select class="ctrl-select" id="qf-sign"><option value="random">Случаен</option><option value=">">&gt; 0</option><option value="<">&lt; 0</option><option value=">=">&ge; 0</option><option value="<=">&le; 0</option></select>
         <label class="ctrl-check"><input type="checkbox" id="qf-extra" checked> Добави линеен множител</label>
-        <button class="btn btn-gen" onclick="genQuadFactor()">🎲 Следваща задача</button>
+        <button class="btn btn-gen" onclick="genQuadFactor()">🎲 Генерирай задача</button>
       </div>
       <div id="qf-problem" class="hidden">
         <div class="expr-display" id="qf-expr"></div>
@@ -626,11 +545,7 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
           <button class="btn btn-show" id="qf-btn-ans" onclick="showQFAnswer()">👁 Покажи решението</button>
           <button class="btn btn-sbs"  id="qf-btn-sbs" onclick="toggleQFSBS()">📋 Стъпка по стъпка</button>
         </div>
-        <div id="qf-answer-area" class="hidden" style="text-align:center;margin-top:20px;">
-          <div id="qf-nl"></div>
-          <div style="margin-top:18px;"><span class="answer-result" id="qf-ans-text"></span></div>
-          <div class="steps-box" id="qf-steps" style="text-align:left;"></div>
-        </div>
+        <div id="qf-answer-area" class="hidden" style="text-align:center;margin-top:20px;"><div id="qf-nl"></div><div style="margin-top:18px;"><span class="answer-result" id="qf-ans-text"></span></div></div>
         <div id="qf-sbs" class="hidden"></div>
       </div>
     </div>
@@ -639,17 +554,10 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
   <!-- ══════════ TAB: BIQUAD ══════════ -->
   <div id="tab-biquad" class="tab-panel">
     <div class="card">
-      <div class="note"><b>Метод:</b> Замени <i>t = x²</i> (t ≥ 0), реши квадратното неравенство спрямо <i>t</i>, после върни замяната.</div>
       <div class="controls-bar">
         <span class="ctrl-label">Знак:</span>
-        <select class="ctrl-select" id="bq-sign">
-          <option value="random">Случаен</option>
-          <option value=">">&gt; 0</option>
-          <option value="<">&lt; 0</option>
-          <option value=">=">&ge; 0</option>
-          <option value="<=">&le; 0</option>
-        </select>
-        <button class="btn btn-gen" onclick="genBiquad()">🎲 Следваща задача</button>
+        <select class="ctrl-select" id="bq-sign"><option value="random">Случаен</option><option value=">">&gt; 0</option><option value="<">&lt; 0</option><option value=">=">&ge; 0</option><option value="<=">&le; 0</option></select>
+        <button class="btn btn-gen" onclick="genBiquad()">🎲 Генерирай задача</button>
       </div>
       <div id="bq-problem" class="hidden">
         <div class="expr-display" id="bq-expr"></div>
@@ -657,11 +565,7 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
           <button class="btn btn-show" id="bq-btn-ans" onclick="showBQAnswer()">👁 Покажи решението</button>
           <button class="btn btn-sbs"  id="bq-btn-sbs" onclick="toggleBQSBS()">📋 Стъпка по стъпка</button>
         </div>
-        <div id="bq-answer-area" class="hidden" style="text-align:center;margin-top:20px;">
-          <div id="bq-nl"></div>
-          <div style="margin-top:18px;"><span class="answer-result" id="bq-ans-text"></span></div>
-          <div class="steps-box" id="bq-steps"></div>
-        </div>
+        <div id="bq-answer-area" class="hidden" style="text-align:center;margin-top:20px;"><div id="bq-nl"></div><div style="margin-top:18px;"><span class="answer-result" id="bq-ans-text"></span></div></div>
         <div id="bq-sbs" class="hidden"></div>
       </div>
     </div>
@@ -670,21 +574,14 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
   <!-- ══════════ TAB: FRACTIONAL ══════════ -->
   <div id="tab-fractional" class="tab-panel">
     <div class="card">
-      <div class="note">⚠️ Нулите на <i>Q(x)</i> — знаменателя — се отбелязват с <b>○ празни точки</b> дори при нестрого неравенство, защото функцията там <b>не е дефинирана</b>.</div>
       <div class="controls-bar">
         <span class="ctrl-label">Числител:</span>
         <select class="ctrl-select" id="frac-num"><option value="1">1 множ.</option><option value="2" selected>2 множ.</option><option value="3">3 множ.</option></select>
         <span class="ctrl-label">Знаменател:</span>
         <select class="ctrl-select" id="frac-den"><option value="1" selected>1 множ.</option><option value="2">2 множ.</option></select>
         <span class="ctrl-label">Знак:</span>
-        <select class="ctrl-select" id="frac-sign">
-          <option value="random">Случаен</option>
-          <option value=">">&gt; 0</option>
-          <option value="<">&lt; 0</option>
-          <option value=">=">&ge; 0</option>
-          <option value="<=">&le; 0</option>
-        </select>
-        <button class="btn btn-gen" onclick="genFractional()">🎲 Следваща задача</button>
+        <select class="ctrl-select" id="frac-sign"><option value="random">Случаен</option><option value=">">&gt; 0</option><option value="<">&lt; 0</option><option value=">=">&ge; 0</option><option value="<=">&le; 0</option></select>
+        <button class="btn btn-gen" onclick="genFractional()">🎲 Генерирай задача</button>
       </div>
       <div id="frac-problem" class="hidden">
         <div class="expr-display" id="frac-expr"></div>
@@ -692,15 +589,23 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
           <button class="btn btn-show" id="frac-btn-ans" onclick="showFracAnswer()">👁 Покажи решението</button>
           <button class="btn btn-sbs"  id="frac-btn-sbs" onclick="toggleFracSBS()">📋 Стъпка по стъпка</button>
         </div>
-        <div id="frac-answer-area" class="hidden" style="text-align:center;margin-top:20px;">
-          <div id="frac-nl"></div>
-          <div style="margin-top:18px;"><span class="answer-result" id="frac-ans-text"></span></div>
-        </div>
+        <div id="frac-answer-area" class="hidden" style="text-align:center;margin-top:20px;"><div id="frac-nl"></div><div style="margin-top:18px;"><span class="answer-result" id="frac-ans-text"></span></div></div>
         <div id="frac-sbs" class="hidden"></div>
       </div>
     </div>
   </div>
 
+</div>
+
+<!-- MILESTONE OVERLAY -->
+<div id="milestone-modal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; display:flex; align-items:center; justify-content:center; animation: fadeIn 0.3s;">
+   <div class="card" style="text-align:center; max-width:400px; padding:30px; border:2px solid var(--accent); box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+      <div style="font-size:3.5rem; margin-bottom:15px;">🏆</div>
+      <h2 style="margin-bottom:12px; color:var(--text);">Решени <span id="ms-tasks"></span> задачи!</h2>
+      <div style="font-size:1.2rem; margin-bottom:12px; color:var(--text2);">Текуща оценка: <b id="ms-grade" style="color:var(--success); font-size:1.4rem;"></b></div>
+      <div style="font-size:1.1rem; margin-bottom:24px; color:var(--text3);">Общо време: <b id="ms-time"></b></div>
+      <button class="btn btn-gen" style="width:100%; justify-content:center;" onclick="closeMilestone()">Продължи напред ➡</button>
+   </div>
 </div>
 
 <script>
@@ -709,13 +614,9 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
 ═══════════════════════════════════════════════ */
 const ri=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
 const SIGNS={'>':'&gt;','<':'&lt;','>=':'&ge;','<=':'&le;'};
-const renderSqrt = t => t;
 const kbdDelText = t => t ? t.slice(0,-1) : '';
 
-let linSBSOpen=false;
-let qfSBSOpen=false;
-let bqSBSOpen=false;
-let fracSBSOpen=false;
+let linSBSOpen=false; let qfSBSOpen=false; let bqSBSOpen=false; let fracSBSOpen=false;
 
 /* ── Theme toggle ── */
 function toggleTheme(){
@@ -725,22 +626,50 @@ function toggleTheme(){
 }
 (function(){if(localStorage.getItem('theme')==='light'){document.body.classList.add('light');document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('theme-btn');if(b)b.textContent='🌙 Тъмна тема';});}})();
 
+/* ── Menu Logic ── */
+function returnToMenu() {
+    document.getElementById('menu-section').style.display = 'block';
+    document.getElementById('lin-problem').classList.add('hidden');
+    document.getElementById('qf-problem').classList.add('hidden');
+    document.getElementById('bq-problem').classList.add('hidden');
+    document.getElementById('frac-problem').classList.add('hidden');
+    timerStop();
+}
+function hideMenu() {
+    document.getElementById('menu-section').style.display = 'none';
+}
+function genCurrentType() {
+    const activeId = document.querySelector('.tab-panel.active').id;
+    if (activeId === 'tab-linear') genLinear();
+    else if (activeId === 'tab-quadfactor') genQuadFactor();
+    else if (activeId === 'tab-biquad') genBiquad();
+    else if (activeId === 'tab-fractional') genFractional();
+}
+
 /* ── Answer Normalization ── */
 function normalizeAnswer(s){
   s=s.replace(/^[xх]\s*[∈∊]\s*/i,'').replace(/–/g,'-').replace(/\+∞/g,'+inf').replace(/[−-]∞/g,'-inf').replace(/∞/g,'inf').replace(/−/g,'-');
-  s=s.replace(/\{([^}]+)\}/g,(match,inside)=>{
-    return inside.split(/[,;]/).map(v=>{const n=v.trim();return n?`[${n};${n}]`:'';}).filter(Boolean).join('U');
-  });
-  return _mergeAdjacentIntervals(s.replace(/\s+/g,'').replace(/∪/g,'U').replace(/[,;]/g,';').toLowerCase());
+  s=s.replace(/(\d),(\d)/g, '$1.$2');
+  s=s.replace(/\{([^}]+)\}/g,(match,inside)=>{ return inside.split(';').map(v=>{const n=v.trim();return n?`[${n};${n}]`:'';}).filter(Boolean).join('U'); });
+  s=s.replace(/\s+/g,'').replace(/∪/g,'U').toLowerCase();
+  return _mergeAdjacentIntervals(s);
 }
 function _mergeAdjacentIntervals(s){
   const parts=s.split('U').map(p=>p.trim()).filter(Boolean);
   if(parts.length<2)return s;
   function parseInterval(p){
-    // ПОПРАВЕН регулярният израз, за да разпознава '+' пред безкрайността (+inf)
-    const m=p.match(/^([\[({])([-+\d.infnan]+);([-+\d.infnan]+)([\])}])$/i);
+    const m=p.match(/^([\[({])([-+\d.infnan/]+);([-+\d.infnan/]+)([\])}])$/i);
     if(!m)return null;
-    return{lo:m[2]==='-inf'?-Infinity:parseFloat(m[2]),hi:m[3]==='+inf'||m[3]==='inf'?Infinity:parseFloat(m[3]),loOpen:m[1]==='('||m[1]==='{',hiOpen:m[4]===')'||m[4]==='}'};
+    function pN(str) {
+        if(str==='-inf') return -Infinity;
+        if(str==='+inf'||str==='inf') return Infinity;
+        if(str.includes('/')) {
+            let pts = str.split('/');
+            return parseFloat(pts[0])/parseFloat(pts[1]);
+        }
+        return parseFloat(str);
+    }
+    return{lo:pN(m[2]),hi:pN(m[3]),loOpen:m[1]==='('||m[1]==='{',hiOpen:m[4]===')'||m[4]==='}'};
   }
   const parsed=parts.map(parseInterval);if(parsed.some(p=>p===null))return s;
   parsed.sort((a,b)=>a.lo-b.lo||(a.loOpen?1:-1));
@@ -751,7 +680,17 @@ function _mergeAdjacentIntervals(s){
       if(cur.hi>last.hi||(Math.abs(cur.hi-last.hi)<1e-9&&!cur.hiOpen)){last.hi=cur.hi;last.hiOpen=cur.hiOpen;}
     }else merged.push(Object.assign({},cur));
   }
-  return merged.map(({lo,hi,loOpen,hiOpen})=>`${loOpen?'(':'['}${lo===-Infinity?'-inf':lo};${hi===Infinity?'+inf':hi}${hiOpen?')':']'}`).join('U');
+  function fN(v) {
+      if(v===-Infinity) return '-inf';
+      if(v===Infinity) return 'inf';
+      for(let d=2; d<=10; d++) {
+         if(Math.abs(Math.abs(v) - Math.round(Math.abs(v)*d)/d) < 1e-9) {
+             return (v<0?'-':'') + Math.round(Math.abs(v)*d) + '/' + d;
+         }
+      }
+      return parseFloat(v.toFixed(4)).toString();
+  }
+  return merged.map(({lo,hi,loOpen,hiOpen})=>`${loOpen?'(':'['}${fN(lo)};${fN(hi)}${hiOpen?')':']'}`).join('U');
 }
 
 /* ── Scoring & Timer engine ── */
@@ -760,18 +699,28 @@ const HINT_COST=10;
 function scoreInit(){
   SCORE.tasks=parseInt(localStorage.getItem('sc_tasks')||'0');SCORE.correct=parseInt(localStorage.getItem('sc_correct')||'0');
   SCORE.totalPts=parseInt(localStorage.getItem('sc_totalPts')||'0');SCORE.maxPts=parseInt(localStorage.getItem('sc_maxPts')||'0');
-  SCORE.hintsUsed=parseInt(localStorage.getItem('sc_hintsTotal')||'0');scoreUpdateUI();
+  SCORE.hintsUsed=parseInt(localStorage.getItem('sc_hintsTotal')||'0');
+  SCORE.timerSec=parseInt(localStorage.getItem('sc_timer')||'0');
+  scoreUpdateUI();
 }
 function scoreSave(){
   localStorage.setItem('sc_tasks',SCORE.tasks);localStorage.setItem('sc_correct',SCORE.correct);
   localStorage.setItem('sc_totalPts',SCORE.totalPts);localStorage.setItem('sc_maxPts',SCORE.maxPts);
-  localStorage.setItem('sc_hintsTotal',SCORE.hintsUsed);
+  localStorage.setItem('sc_hintsTotal',SCORE.hintsUsed);localStorage.setItem('sc_timer',SCORE.timerSec);
+}
+function getGrade() {
+    if (SCORE.maxPts === 0) return "–";
+    const g = 2 + (SCORE.totalPts / SCORE.maxPts) * 4;
+    return Math.max(2, Math.min(6, g)).toFixed(2);
 }
 function scoreUpdateUI(){
   document.getElementById('hdr-solved').textContent=SCORE.correct+'/'+SCORE.tasks;
   document.getElementById('hdr-hints').textContent=SCORE.hintsUsed;
-  const pct=SCORE.maxPts>0?Math.round(SCORE.totalPts/SCORE.maxPts*100):null;
-  document.getElementById('hdr-pct').textContent=pct!==null?pct+'%':'–';
+  document.getElementById('hdr-pct').textContent=getGrade();
+  
+  let mm = Math.floor(SCORE.timerSec / 60);
+  let ss = String(SCORE.timerSec % 60).padStart(2, '0');
+  document.getElementById('hdr-timer').textContent = `${mm}:${ss}`;
 }
 function confirmReset(){
   if(!window._resetPending){
@@ -782,42 +731,48 @@ function confirmReset(){
   }
   window._resetPending=false;const btn=document.querySelector('.btn-reset');
   if(btn&&btn._origText){btn.textContent=btn._origText;btn.classList.remove('danger');}
-  ['sc_tasks','sc_correct','sc_totalPts','sc_maxPts','sc_hintsTotal'].forEach(k=>localStorage.removeItem(k));
-  SCORE.tasks=SCORE.correct=SCORE.totalPts=SCORE.maxPts=SCORE.hintsUsed=0;
-  scoreUpdateUI();timerStop();timerReset();
+  ['sc_tasks','sc_correct','sc_totalPts','sc_maxPts','sc_hintsTotal','sc_timer'].forEach(k=>localStorage.removeItem(k));
+  SCORE.tasks=SCORE.correct=SCORE.totalPts=SCORE.maxPts=SCORE.hintsUsed=SCORE.timerSec=0;
+  scoreUpdateUI(); timerStop();
 }
 function timerStart(){
-  timerStop();SCORE.timerSec=0;SCORE.taskPts=100;
-  const el=document.getElementById('hdr-timer');el.className='timer-val';el.textContent='0:00';
+  timerStop(); SCORE.taskPts=100;
   document.getElementById('btn-global-hint').disabled=false;
   SCORE._interval=setInterval(()=>{
     SCORE.timerSec++;
-    el.textContent=`${Math.floor(SCORE.timerSec/60)}:${String(SCORE.timerSec%60).padStart(2,'0')}`;
-    el.className=`timer-val ${SCORE.timerSec>=120?'danger':SCORE.timerSec>=60?'warn':''}`;
+    scoreUpdateUI();
   },1000);
 }
 function timerStop(){if(SCORE._interval){clearInterval(SCORE._interval);SCORE._interval=null;}}
-function timerReset(){SCORE.timerSec=0;const el=document.getElementById('hdr-timer');if(el){el.textContent='–';el.className='timer-val';}}
 
 function useHint(){
   const areas=['lin-sbs','qf-sbs','bq-sbs','frac-sbs'];
   for(const aid of areas){
     const area=document.getElementById(aid);
     if(area&&!area.classList.contains('hidden')&&area._sbsState){
-      const st=area._sbsState;
-      if(st.factors){
-        for(let fi=0;fi<st.factors.length;fi++){
-          const inp=document.getElementById(`${aid}-ri-${fi}`);
-          if(inp&&!inp.classList.contains('ok')){showToast('💡',`Корен ${fi+1}: x = ${st.factors[fi].root.toFixed(2)}`,'warn');return _deductHint();}
-        }
+      const st = area._sbsState;
+      // Hint for Quadratic D<0 inputs
+      if (st.normFactors) {
+          for(let fi=0; fi<st.normFactors.length; fi++) {
+              if(st.normFactors[fi].noRoot) {
+                  const inpD = document.getElementById(`${aid}-qd-${fi}`);
+                  const selA = document.getElementById(`${aid}-qa-${fi}`);
+                  if(inpD && !inpD.classList.contains('ok') && !inpD.disabled) {
+                      const actualD = Math.round((st.normFactors[fi].qB**2 - 4*st.normFactors[fi].qA*st.normFactors[fi].qC)*1000)/1000;
+                      showToast('💡', `Дискриминантата е D = ${actualD}`, 'warn');
+                      return _deductHint();
+                  }
+                  if(selA && !selA.classList.contains('ok') && !selA.disabled) {
+                      showToast('💡', `Старшият коефициент a e положителен (> 0)`, 'warn');
+                      return _deductHint();
+                  }
+              }
+          }
       }
-      if(st.intervals){
-        const last=st.intervals.length-1;
-        if(!st.signAnswers[last]){showToast('💡',`Знакът най-вдясно е <b>${st.intervals[last].isPlus?'+':'−'}</b>.`,'warn');return _deductHint();}
-      }
+      showToast('💡','Следвай указанията в текущата стъпка.','warn'); return _deductHint();
     }
   }
-  showToast('💡','Виж текущата незавършена стъпка.','warn');_deductHint();
+  showToast('💡','Няма активна задача.','warn');
 }
 function _deductHint(){
   SCORE.taskPts=Math.max(0,SCORE.taskPts-HINT_COST);SCORE.hintsUsed++;
@@ -825,14 +780,33 @@ function _deductHint(){
   scoreUpdateUI();return true;
 }
 function scoreTaskDone(correct){
-  timerStop();SCORE.tasks++;const earned=correct?SCORE.taskPts:0;
-  SCORE.totalPts+=earned;SCORE.maxPts+=100;if(correct)SCORE.correct++;
-  scoreSave();scoreUpdateUI();
-  const pct=Math.round(earned);const cls=pct>=70?'ok':'warn';
-  const msgs=pct===100?['🏆 Перфектно!','100 точки — без подсказки!']:pct>=70?['✅ Браво!',`${pct} точки`]:pct>0?['💪 Продължавай!',`${pct} точки`]:['📚 Опитай пак!','Разгледай решението'];
-  showToast(msgs[0],msgs[1],cls);
-  document.getElementById('btn-global-hint').disabled=true;timerReset();
+  SCORE.tasks++; const earned = correct ? SCORE.taskPts : 0;
+  SCORE.totalPts += earned; SCORE.maxPts += 100; if(correct) SCORE.correct++;
+  scoreSave(); scoreUpdateUI();
+  
+  if (SCORE.tasks % 5 === 0 && SCORE.tasks > 0) {
+      showMilestone();
+  } else {
+      const cls=earned>=70?'ok':'warn';
+      const msgs=earned===100?['🏆 Перфектно!','+100 точки!']:earned>=70?['✅ Браво!',`+${earned} точки`]:earned>0?['💪 Продължавай!',`+${earned} точки`]:['📚 Опитай пак!','Разгледай решението'];
+      showToast(msgs[0],msgs[1],cls);
+  }
+  document.getElementById('btn-global-hint').disabled=true;
 }
+
+function showMilestone() {
+    let mm = Math.floor(SCORE.timerSec / 60);
+    let ss = String(SCORE.timerSec % 60).padStart(2, '0');
+    document.getElementById('ms-tasks').textContent = SCORE.tasks;
+    document.getElementById('ms-grade').textContent = getGrade();
+    document.getElementById('ms-time').textContent = `${mm} мин. ${ss} сек.`;
+    document.getElementById('milestone-modal').classList.remove('hidden');
+}
+function closeMilestone() {
+    document.getElementById('milestone-modal').classList.add('hidden');
+    genCurrentType();
+}
+
 function showToast(title,msg,cls){
   const old=document.getElementById('task-toast-el');if(old)old.remove();
   const d=document.createElement('div');d.id='task-toast-el';d.className=`task-toast ${cls}`;
@@ -845,7 +819,14 @@ function switchTab(name){
 }
 
 /* ── Logic & Formatting ── */
-function leadSign(factors){let s=1;factors.forEach(f=>{if(f.a<0&&f.power%2!==0)s=-s;});return s;}
+function leadSign(factors){
+  let s=1;
+  factors.forEach(f=>{
+     if (f.quadExpr) { if (f.qA < 0) s = -s; } 
+     else { if (f.a < 0 && (f.power||1)%2 !== 0) s = -s; }
+  });
+  return s;
+}
 function intervalSigns(factors,sortedRoots,rootsMap){
   let cur=leadSign(factors)>0, arr=[{isPlus:cur}];
   for(let i=sortedRoots.length-1;i>=0;i--){
@@ -854,7 +835,18 @@ function intervalSigns(factors,sortedRoots,rootsMap){
   }
   return arr.reverse();
 }
+function formatQuad(a, b, c) {
+    let res = '';
+    if (a === 1) res += '<i>x</i>²'; else if (a === -1) res += '−<i>x</i>²'; else res += `${a}<i>x</i>²`;
+    if (b !== 0) {
+        if (b === 1) res += ' + <i>x</i>'; else if (b === -1) res += ' − <i>x</i>';
+        else if (b > 0) res += ` + ${b}<i>x</i>`; else res += ` − ${Math.abs(b)}<i>x</i>`;
+    }
+    if (c !== 0) { if (c > 0) res += ` + ${c}`; else res += ` − ${Math.abs(c)}`; }
+    return res;
+}
 function fmtF(f){
+  if (f.quadExpr) return `(${f.quadExpr})`;
   const absA=Math.abs(f.a),absB=Math.abs(f.b);
   let base='';
   if(f.a===1)base=f.b===0?'<i>x</i>':(f.b>0?`(<i>x</i> + ${fmtNum(absB)})`:`(<i>x</i> − ${fmtNum(absB)})`);
@@ -866,21 +858,47 @@ function fmtF(f){
 function fmtNum(n){if(Number.isInteger(n))return String(n);const g=(a,b)=>b===0?a:g(b,a%b);const num=Math.round(n*1000),gv=g(Math.abs(num),1000);return `<sup>${num/gv}</sup>⁄<sub>${1000/gv}</sub>`;}
 function fmtExpr(factors){return factors.map(f=>fmtF(f)).join('');}
 function fmtFrac(numF,denF){return `<span class="math-frac"><span class="frac-num">${fmtExpr(numF)}</span><span class="frac-den">${fmtExpr(denF)}</span></span>`;}
-function fmtR(v){return Number.isInteger(v)?String(v):parseFloat(v.toFixed(4)).toString();}
+function fmtR(v){
+  if(Number.isInteger(v)) return String(v);
+  const sign = v < 0 ? '−' : '';
+  const absV = Math.abs(v);
+  for(let den = 2; den <= 10; den++) {
+      let num = Math.round(absV * den);
+      if (Math.abs(absV - num/den) < 1e-9) {
+          return `${sign}${num}/${den}`;
+      }
+  }
+  return parseFloat(v.toFixed(4)).toString().replace('.', ',');
+}
 function fmtSqrtR(r){
-  if(r===0)return '0';const s=r<0?'−':'', absR=Math.abs(r);
-  if(Number.isInteger(absR))return s+absR;
+  if(r===0)return '0';
+  const sign = r < 0 ? '−' : '';
+  const absR = Math.abs(r);
+  if(Number.isInteger(absR)) return sign + absR;
   const tVal=absR*absR, tInt=Math.round(tVal);
   if(Math.abs(tVal-tInt)<0.001&&tInt>0){
     const st=Math.sqrt(tInt);
-    if(Number.isInteger(st)||Math.abs(st-Math.round(st))<0.001)return s+Math.round(st);
-    return `${s}√${tInt}`;
+    if(Number.isInteger(st)||Math.abs(st-Math.round(st))<0.001)return sign+Math.round(st);
+    return `${sign}√${tInt}`;
   }
   return fmtR(r);
 }
 function stripHTML(s){return s.replace(/<[^>]+>/g,'');}
 function stripX2(s){return s.replace(/^[xх]\s*[∈∊]\s*/i,'');}
 function solPlain(sol){return stripHTML(stripX2(sol));}
+
+function parseInputRoot(val) {
+    if(!val) return NaN;
+    let s = val.replace(/\s+/g,'').replace(/,/g,'.').replace(/−/g,'-');
+    if(s.includes('/')) {
+        let parts = s.split('/');
+        if(parts.length === 2 && parts[0] !== '' && parts[1] !== '' && parseFloat(parts[1]) !== 0) {
+            return parseFloat(parts[0]) / parseFloat(parts[1]);
+        }
+        return NaN;
+    }
+    return parseFloat(s);
+}
 
 function buildSol(allRoots,signIntervals,ineqSign,denRoots=[],rootsMap={}){
   const isS=ineqSign==='>'||ineqSign==='<', wP=ineqSign==='>'||ineqSign==='>=';
@@ -942,280 +960,462 @@ function drawNL(id,rootDefs,signIntervals){
 }
 
 /* ═══════════════════════════════════════════════
-   GENERIC SBS BUILDER
+   NEW 6-STEP SBS BUILDER (PEDAGOGICALLY CORRECT)
 ═══════════════════════════════════════════════ */
 function buildSBS(cfg){
-  const area=document.getElementById(cfg.areaId);
-  const {factors,roots,rootsMap,ineqSign,sol,denRoots=[]}=cfg;
-  const isS=ineqSign==='>'||ineqSign==='<', wP=ineqSign==='>'||ineqSign==='>=';
-  const signs=cfg.signIntervals||intervalSigns(factors,roots,rootsMap);
+  const area = document.getElementById(cfg.areaId);
+  const { factors, roots, rootsMap, ineqSign, sol, denRoots=[] } = cfg;
 
-  let intervals=[];const pts2=[-Infinity,...roots,Infinity];
-  for(let i=0;i<=roots.length;i++){intervals.push({start:pts2[i],end:pts2[i+1],isPlus:signs[i].isPlus});}
-
-  const dotAnswers=roots.map(r=>{
-    const pow=rootsMap[r.toFixed(4)]||1, isDen=denRoots.some(d=>Math.abs(d-r)<1e-5);
-    return{r, fill:isS||isDen?'open':'filled', shape:pow%2===0?'diamond':'circle', isDen};
+  const hasNegLead = factors.some(f => f.quadExpr ? (f.qA < 0) : (f.a < 0));
+  const hasQuads = factors.some(f => f.quadExpr !== undefined);
+  
+  let tSign = 1; 
+  factors.forEach(f => {
+      if (f.quadExpr) { if (f.qA < 0) tSign *= -1; } 
+      else { if (f.a < 0) tSign *= Math.pow(-1, f.power || 1); }
+  });
+  const ns = tSign < 0 ? ({'>=':'<=','<=':'>=','>':'<','<':'>'}[ineqSign]) : ineqSign;
+  
+  const normFactors = factors.map(f => {
+      if (f.quadExpr) {
+          if (f.qA < 0) return {...f, qA: -f.qA, qB: -f.qB, qC: -f.qC, a: -f.a, quadExpr: formatQuad(-f.qA, -f.qB, -f.qC)};
+      } else {
+          if (f.a < 0) return {...f, a: -f.a, b: -f.b};
+      }
+      return f;
   });
 
-  const hasNegLead=factors.some(f=>f.a<0);
-  let norm=null;
-  if(hasNegLead){
-    let tSign=1; factors.forEach(f=>{if(f.a<0)tSign*=Math.pow(-1,f.power||1);});
-    const ns=tSign<0?({'>=':'<=','<=':'>=','>':'<','<':'>'}[ineqSign]):ineqSign;
-    norm={newSign:ns, normFactors:factors.map(f=>f.a<0?{...f,a:-f.a,b:-f.b}:f), tSign: tSign};
-    norm.exprHTML=norm.normFactors.map(f=>fmtF(f)).join('')+' <span style="font-style:normal;">'+SIGNS[ns]+'</span> 0';
-  }
+  let activeFactors = [];
+  normFactors.forEach(f => {
+      if (f.noRoot) return; 
+      if (f.isQuadWithTwoRoots) {
+          activeFactors.push({a: 1, b: -f.r1, power: 1, isDen: f.isDen});
+          activeFactors.push({a: 1, b: -f.r2, power: 1, isDen: f.isDen});
+      } else if (f.isQuad && f.power === 2) {
+          activeFactors.push({a: 1, b: -f.root, power: 2, isDen: f.isDen});
+      } else {
+          activeFactors.push({...f});
+      }
+  });
 
-  area._sbsState={
-    areaId:cfg.areaId,factors,roots,rootsMap,ineqSign,sol,denRoots,intervals,wantPlus:wP,isStrict:isS,
-    dotAnswers,dotSelFill:{},signAnswers:{},answerText:'',submitted:false,_norm:norm
+  const isS = ns === '>' || ns === '<';
+  const wP = ns === '>' || ns === '>=';
+  const signs = cfg.signIntervals || intervalSigns(activeFactors, roots, rootsMap);
+
+  let intervals = [];
+  const pts2 = [-Infinity, ...roots, Infinity];
+  for(let i=0; i<=roots.length; i++) intervals.push({start:pts2[i], end:pts2[i+1], isPlus:signs[i].isPlus});
+
+  const dotAnswers = roots.map(r => {
+    const pow = rootsMap[r.toFixed(4)] || 1;
+    const isDen = denRoots.some(d => Math.abs(d-r) < 1e-5);
+    return {r, fill: isS || isDen ? 'open' : 'filled', shape: pow%2===0 ? 'diamond' : 'circle', isDen};
+  });
+
+  area._sbsState = {
+    areaId: cfg.areaId, factors, normFactors, activeFactors, roots, rootsMap, ineqSign, sol, denRoots, 
+    intervals, wantPlus: wP, isStrict: isS, dotAnswers, dotSelFill: {}, signAnswers: {},
+    hasNegLead, hasQuads, currentSign: ns
   };
 
-  const rowsHTML=factors.map((f,fi)=>`<div class="root-row"><span class="factor-chip" id="${cfg.areaId}-chip-${fi}">${fmtF(f)}</span><span class="eq-zero">= 0</span><span class="arr-sym">⟹</span><div class="input-wrap"><span class="x-lbl"><i>x</i> =</span><input class="sbs-input" id="${cfg.areaId}-ri-${fi}" inputmode="decimal" onfocus="sbsFocusKbd1('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')sbsCheckRoots('${cfg.areaId}')"><span class="input-fb" id="${cfg.areaId}-rfb-${fi}"></span>${f.power>1?`<span style="font-size:.75rem;color:var(--text3);">(кратност ${f.power})</span>`:''}</div></div>`).join('');
-
-  const dpRowsHTML=dotAnswers.map((da,di)=>`<div class="dot-picker-row"><span class="dp-val"><i>x</i> = <b>${fmtSqrtR(da.r)}</b></span><div class="dp-group"><span class="dp-group-label">Точка:</span><button class="dp-btn" id="${cfg.areaId}-dp-fill-${di}-open" onclick="dpSel('${cfg.areaId}',${di},'open')"><span class="dot-open-c"></span> Празна ○</button><button class="dp-btn" id="${cfg.areaId}-dp-fill-${di}-filled" onclick="dpSel('${cfg.areaId}',${di},'filled')"><span class="dot-filled-c"></span> Плътна ●</button></div><div class="dp-mult-wrap"><span class="dp-group-label">Кратност:</span><select class="dp-mult" id="${cfg.areaId}-dp-mult-${di}"><option value="">— избери —</option><option value="1">Нечетна</option><option value="2">Четна</option></select><span class="dp-row-fb" id="${cfg.areaId}-dp-fb-${di}"></span></div></div>`).join('');
-
-  area.innerHTML=`<div class="sbs-wrap">
+  let stepCounter = 0;
+  let html = `<div class="sbs-wrap">
     <div class="sbs-hdr">📋 Стъпка по стъпка <span class="sbs-expr">| ${cfg.exprHTML}</span></div>
-    ${cfg.quadNote?`<div class="quad-comment" style="margin:12px;width:calc(100% - 24px);"><span class="qc-icon">💡</span><div>${cfg.quadNote}</div></div>`:''}
+    ${cfg.quadNote ? `<div class="quad-comment" style="margin:12px;width:calc(100% - 24px);"><span class="qc-icon">💡</span><div>${cfg.quadNote}</div></div>` : ''}`;
 
-    ${hasNegLead?`<div class="sbs-step" id="${cfg.areaId}-s0"><div class="sbs-step-title"><div class="sbs-num">0</div>Запиши еквивалентно неравенство с положителни старши коефициенти</div>
-      <div class="math-kbd">
-        <button onclick="ki0('${cfg.areaId}','x')"><i>x</i></button>
-        <button onclick="ki0('${cfg.areaId}','(')">(</button>
-        <button onclick="ki0('${cfg.areaId}',')')">)</button>
-        <button onclick="ki0('${cfg.areaId}','+')">+</button>
-        <button onclick="ki0('${cfg.areaId}','−')">−</button>
-        <button onclick="ki0('${cfg.areaId}','/')">/</button>
-        <div class="kbd-sep"></div>
-        <button onclick="ki0('${cfg.areaId}','²')">²</button>
-        <button onclick="ki0('${cfg.areaId}','³')">³</button>
-        <button onclick="ki0('${cfg.areaId}','⁴')">⁴</button>
-        <button onclick="ki0('${cfg.areaId}','⁵')">⁵</button>
-        <button onclick="ki0('${cfg.areaId}','⁶')">⁶</button>
-        <button onclick="ki0('${cfg.areaId}','⁷')">⁷</button>
-        <button onclick="ki0('${cfg.areaId}','⁸')">⁸</button>
-        <div class="kbd-sep"></div>
-        <button onclick="ki0('${cfg.areaId}','>')">&gt;</button>
-        <button onclick="ki0('${cfg.areaId}','<')">&lt;</button>
-        <button onclick="ki0('${cfg.areaId}','≥')">&ge;</button>
-        <button onclick="ki0('${cfg.areaId}','≤')">&le;</button>
-        <div class="kbd-sep"></div>
-        <button onclick="ki0('${cfg.areaId}','0')">0</button>
-        ${[1,2,3,4,5,6,7,8,9].map(d=>`<button onclick="ki0('${cfg.areaId}','${d}')">${d}</button>`).join('')}
-        <div class="kbd-sep"></div>
-        <button class="kbd-del" onclick="kd0('${cfg.areaId}')">⌫</button>
-        <button class="kbd-del" onclick="kc0('${cfg.areaId}')">Изчисти</button>
+  // ── S0: Смяна на знаци ──
+  if (hasNegLead) {
+    html += `<div class="sbs-step" id="${cfg.areaId}-s0">
+      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Запиши същото неравенство, но с положителни старши коефициенти</div>
+      <div class="sbs-hint">Умножи по (-1) множителите, където x е с минус. Не забравяй да обърнеш посоката на неравенството, ако общият брой сменени знаци е нечетен! Не разкривай скоби.</div>
+      ${renderKbd(cfg.areaId, 's0')}
+      <div class="ans-row"><div class="ans-display" id="${cfg.areaId}-s0-disp" onclick="document.getElementById('${cfg.areaId}-s0-hi').focus()"><span id="${cfg.areaId}-s0-at"></span><span class="cur"></span></div><button class="btn btn-ok" id="${cfg.areaId}-btn-s0" onclick="checkS0('${cfg.areaId}')">✔</button></div>
+      <input id="${cfg.areaId}-s0-hi" style="position:absolute;opacity:0;" oninput="sbsHiSync('${cfg.areaId}','s0')" onkeydown="if(event.key==='Enter')checkS0('${cfg.areaId}')"><div id="${cfg.areaId}-s0-fb"></div>
+    </div>`;
+  }
+
+  // ── S1: Анализ на квадратни множители ──
+  if (hasQuads) {
+    stepCounter++;
+    html += `<div class="sbs-step" id="${cfg.areaId}-s1" style="display:${hasNegLead?'none':'block'}">
+      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Анализирай квадратните тричлени</div>
+      <div class="sbs-hint">Ако D < 0, въведи D и знака на a. Ако D ≥ 0, намери корените.</div>
+      <div class="root-rows">
+        ${normFactors.map((f, fi) => {
+            if (!f.quadExpr) return '';
+            if (f.noRoot) {
+                return `<div class="root-row"><span class="factor-chip">${fmtF(f)}</span><span class="eq-zero">= 0 ⟹</span>
+                <div class="input-wrap">
+                   <span class="x-lbl">D =</span><input class="sbs-input" id="${cfg.areaId}-qd-${fi}" inputmode="decimal" style="width:60px;" onfocus="focusNum('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')checkS1('${cfg.areaId}')">
+                   <span class="x-lbl">, a</span>
+                   <select class="qdlg-sel" id="${cfg.areaId}-qa-${fi}" onchange="checkS1('${cfg.areaId}')">
+                      <option value="">?</option><option value=">">&gt; 0</option><option value="<">&lt; 0</option>
+                   </select>
+                   <span class="input-fb" id="${cfg.areaId}-qrfb-${fi}"></span>
+                </div>
+                <div id="${cfg.areaId}-qres-${fi}" style="display:none; color:var(--success); font-weight:bold; margin-left:8px; font-size:0.95rem;">⟹ винаги (+)</div>
+                </div>`;
+            } else if (f.isQuadWithTwoRoots) {
+                return `<div class="root-row"><span class="factor-chip">${fmtF(f)}</span><span class="eq-zero">= 0 ⟹</span><div class="input-wrap"><span class="x-lbl">x₁ =</span><input class="sbs-input" id="${cfg.areaId}-qri-${fi}-0" inputmode="decimal" onfocus="focusNum('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')checkS1('${cfg.areaId}')"> <span class="x-lbl">x₂ =</span><input class="sbs-input" id="${cfg.areaId}-qri-${fi}-1" inputmode="decimal" onfocus="focusNum('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')checkS1('${cfg.areaId}')"><span class="input-fb" id="${cfg.areaId}-qrfb-${fi}"></span></div></div>`;
+            } else if (f.isQuad && f.power === 2) {
+                return `<div class="root-row"><span class="factor-chip">${fmtF(f)}</span><span class="eq-zero">= 0 ⟹</span><div class="input-wrap"><span class="x-lbl">x =</span><input class="sbs-input" id="${cfg.areaId}-qri-${fi}" inputmode="decimal" onfocus="focusNum('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')checkS1('${cfg.areaId}')"><span class="input-fb" id="${cfg.areaId}-qrfb-${fi}"></span></div></div>`;
+            }
+        }).join('')}
       </div>
-      <div class="ans-row"><div class="ans-display" id="${cfg.areaId}-s0-disp" onclick="document.getElementById('${cfg.areaId}-s0-hi').focus()"><span id="${cfg.areaId}-s0-at"></span><span class="cur"></span></div><button class="btn btn-ok" onclick="sbsS0Check('${cfg.areaId}')">✔</button><button class="btn" style="background:var(--bg3);color:var(--text2);" onclick="sbsS0Skip('${cfg.areaId}')">⏭</button></div>
-      <input id="${cfg.areaId}-s0-hi" style="position:absolute;opacity:0;" oninput="sbsHiSync0('${cfg.areaId}')" onkeydown="if(event.key==='Enter')sbsS0Check('${cfg.areaId}')"><div id="${cfg.areaId}-s0-fb"></div></div>`:''}
+      ${renderNumKbd(cfg.areaId)}
+      <div style="margin-top:10px;"><button class="btn btn-ok" id="${cfg.areaId}-btn-s1" onclick="checkS1('${cfg.areaId}')">Продължи →</button></div>
+    </div>`;
+  }
 
-    <div class="sbs-step" id="${cfg.areaId}-step1" ${hasNegLead?'style="display:none;"':''}>
-      <div class="sbs-step-title"><div class="sbs-num" id="${cfg.areaId}-n1">1</div>Намери корените</div>
-      <div class="root-rows">${roots.length?rowsHTML:'<div style="color:var(--text3);font-style:italic;">Няма реални корени.</div>'}</div>
-      <div class="math-kbd" id="${cfg.areaId}-kbd1" style="display:none; justify-content:center; margin-bottom:10px;">
-        <button onclick="ki1('${cfg.areaId}','1')">1</button>
-        <button onclick="ki1('${cfg.areaId}','2')">2</button>
-        <button onclick="ki1('${cfg.areaId}','3')">3</button>
-        <button onclick="ki1('${cfg.areaId}','4')">4</button>
-        <button onclick="ki1('${cfg.areaId}','5')">5</button>
-        <button onclick="ki1('${cfg.areaId}','6')">6</button>
-        <button onclick="ki1('${cfg.areaId}','7')">7</button>
-        <button onclick="ki1('${cfg.areaId}','8')">8</button>
-        <button onclick="ki1('${cfg.areaId}','9')">9</button>
-        <button onclick="ki1('${cfg.areaId}','0')">0</button>
-        <div class="kbd-sep"></div>
-        <button onclick="ki1('${cfg.areaId}','−')">−</button>
-        <button onclick="ki1('${cfg.areaId}','/')">/</button>
-        <button onclick="ki1('${cfg.areaId}',',')">,</button>
-        <button class="kbd-del" onclick="kd1('${cfg.areaId}')">⌫</button>
+  // ── S2: Еквивалентно линейно неравенство ──
+  if (hasQuads) {
+    stepCounter++;
+    html += `<div class="sbs-step" id="${cfg.areaId}-s2" style="display:none">
+      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Запиши финалното еквивалентно неравенство (каноничен вид)</div>
+      <div class="sbs-hint">Използвай намерените корени от предната стъпка. <b>Важно:</b> Множителите, които са строго положителни (D < 0), не влияят на знака и <b>трябва да се изпуснат</b>!</div>
+      ${renderKbd(cfg.areaId, 's2')}
+      <div class="ans-row"><div class="ans-display" id="${cfg.areaId}-s2-disp" onclick="document.getElementById('${cfg.areaId}-s2-hi').focus()"><span id="${cfg.areaId}-s2-at"></span><span class="cur"></span></div><button class="btn btn-ok" id="${cfg.areaId}-btn-s2" onclick="checkS2('${cfg.areaId}')">✔</button></div>
+      <input id="${cfg.areaId}-s2-hi" style="position:absolute;opacity:0;" oninput="sbsHiSync('${cfg.areaId}','s2')" onkeydown="if(event.key==='Enter')checkS2('${cfg.areaId}')"><div id="${cfg.areaId}-s2-fb"></div>
+    </div>`;
+  }
+
+  // ── S3: Корени на линейните множители ──
+  stepCounter++;
+  const s3Display = (hasNegLead || hasQuads) ? 'none' : 'block';
+  html += `<div class="sbs-step" id="${cfg.areaId}-s3" style="display:${s3Display}">
+      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Намери корените</div>
+      <div class="sbs-hint">Въведи всички уникални стойности на x, при които линейните множители стават нула.</div>
+      <div class="root-rows" style="flex-direction:row; flex-wrap:wrap;">
+        ${roots.length ? roots.map((r, ri) => `<div class="input-wrap"><span class="x-lbl">x =</span><input class="sbs-input" id="${cfg.areaId}-ri-${ri}" inputmode="decimal" onfocus="focusNum('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')checkS3('${cfg.areaId}')"></div>`).join('') : '<div style="color:var(--text3);font-style:italic;">Няма реални корени.</div>'}
       </div>
-      <div style="margin-top:10px;">${roots.length?`<button class="btn btn-ok" id="${cfg.areaId}-btn-r" onclick="sbsCheckRoots('${cfg.areaId}')">✔ Провери</button>`:`<button class="btn btn-ok" id="${cfg.areaId}-btn-r" onclick="sbsSkipRoots('${cfg.areaId}')">Продължи →</button>`}<span id="${cfg.areaId}-rfb"></span></div>
-    </div>
+      ${roots.length ? renderNumKbd(cfg.areaId, 's3') : ''}
+      <div style="margin-top:10px;"><button class="btn btn-ok" id="${cfg.areaId}-btn-s3" onclick="checkS3('${cfg.areaId}')">${roots.length ? '✔ Провери' : 'Продължи →'}</button><span id="${cfg.areaId}-s3-fb"></span></div>
+    </div>`;
 
-    ${denRoots.length>0?`<div class="sbs-step" id="${cfg.areaId}-s1od" style="display:none;"><div class="sbs-step-title"><div class="sbs-num" id="${cfg.areaId}-n1od">2</div>Допустими стойности</div>
-      ${roots.map((r,ri)=>`<div class="qdlg-q" style="margin-bottom:8px;"><span class="qdlg-icon">🔍</span><div class="qdlg-text"><b><i>x</i> = ${fmtSqrtR(r)}:</b> <select class="qdlg-sel" id="${cfg.areaId}-od-sel-${ri}"><option value="">— избери —</option><option value="den">нула на знаменателя → изключена</option><option value="num">нула на числителя → допустима</option><option value="both">и на двете</option></select> <button class="qdlg-btn" onclick="sbsOdCheck('${cfg.areaId}',${ri},${denRoots.some(d=>Math.abs(d-r)<1e-5)})">→</button> <span id="${cfg.areaId}-od-fb-${ri}"></span></div></div>`).join('')}
-      <button class="btn btn-ok" id="${cfg.areaId}-od-cont" style="display:none;" onclick="sbsOdDone('${cfg.areaId}')">Продължи →</button></div>`:''}
+  // ── S4a: Допустими стойности (ако е дробно) ──
+  if (denRoots.length > 0) {
+      stepCounter++;
+      html += `<div class="sbs-step" id="${cfg.areaId}-s4a" style="display:none">
+          <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Допустими стойности</div>
+          ${roots.map((r,ri)=>`<div class="qdlg-q" style="margin-bottom:8px;"><span class="qdlg-icon">🔍</span><div class="qdlg-text"><b><i>x</i> = ${fmtSqrtR(r)}:</b> <select class="qdlg-sel" id="${cfg.areaId}-od-sel-${ri}"><option value="">— избери —</option><option value="den">нула на знаменателя → изключена</option><option value="num">нула на числителя → допустима</option><option value="both">и на двете</option></select> <button class="qdlg-btn" onclick="checkS4aItem('${cfg.areaId}',${ri},${denRoots.some(d=>Math.abs(d-r)<1e-5)})">→</button> <span id="${cfg.areaId}-od-fb-${ri}"></span></div></div>`).join('')}
+          <button class="btn btn-ok" id="${cfg.areaId}-btn-s4a" style="display:none;" onclick="checkS4a('${cfg.areaId}')">Продължи →</button>
+      </div>`;
+  }
 
-    <div class="sbs-step" id="${cfg.areaId}-s1b" style="display:none;"><div class="sbs-step-title"><div class="sbs-num" id="${cfg.areaId}-n1b">${denRoots.length>0?'3':'2'}</div>Определи типа на всяка точка</div>
-      <div class="sbs-hint"><b>Плътна ●</b> — нестрого &nbsp;|&nbsp; <b>Празна ○</b> — строго/нула на знаменател<br><b>Нечетна</b> кратност → сменя &nbsp;|&nbsp; <b>Четна</b> → запазва</div>
+  // ── S4b: Тип на точките ──
+  stepCounter++;
+  const dpRowsHTML=dotAnswers.map((da,di)=>`<div class="dot-picker-row"><span class="dp-val"><i>x</i> = <b>${fmtSqrtR(da.r)}</b></span><div class="dp-group"><span class="dp-group-label">Точка:</span><button class="dp-btn" id="${cfg.areaId}-dp-fill-${di}-open" onclick="dpSel('${cfg.areaId}',${di},'open')"><span class="dot-open-c"></span> Празна ○</button><button class="dp-btn" id="${cfg.areaId}-dp-fill-${di}-filled" onclick="dpSel('${cfg.areaId}',${di},'filled')"><span class="dot-filled-c"></span> Плътна ●</button></div><div class="dp-mult-wrap"><span class="dp-group-label">Кратност:</span><select class="dp-mult" id="${cfg.areaId}-dp-mult-${di}"><option value="">— избери —</option><option value="1">Нечетна (сменя)</option><option value="2">Четна (запазва)</option></select><span class="dp-row-fb" id="${cfg.areaId}-dp-fb-${di}"></span></div></div>`).join('');
+  
+  html += `<div class="sbs-step" id="${cfg.areaId}-s4b" style="display:none">
+      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Определи типа на всяка точка</div>
+      <div class="sbs-hint"><b>Плътна ●</b> — нестрого &nbsp;|&nbsp; <b>Празна ○</b> — строго или нула на знаменател<br><b>Нечетна</b> кратност → знакът се сменя &nbsp;|&nbsp; <b>Четна</b> → знакът се запазва</div>
       <div class="dot-picker-wrap">${dpRowsHTML}</div>
-      <button class="btn btn-ok" id="${cfg.areaId}-btn-dp" onclick="sbsCheckDots('${cfg.areaId}')">✔ Провери</button><span id="${cfg.areaId}-dpfb"></span>
-    </div>
-
-    <div class="sbs-step" id="${cfg.areaId}-s2" style="display:none;"><div class="sbs-step-title"><div class="sbs-num" id="${cfg.areaId}-n2">${denRoots.length>0?'4':'3'}</div>Постави знаци</div>
-      <div id="${cfg.areaId}-nl-area"></div><button class="btn btn-ok" id="${cfg.areaId}-btn-s" onclick="sbsCheckSigns('${cfg.areaId}')">✔ Провери</button><div id="${cfg.areaId}-sfb"></div>
-    </div>
-
-    <div class="sbs-step" id="${cfg.areaId}-s3" style="display:none;"><div class="sbs-step-title"><div class="sbs-num" id="${cfg.areaId}-n3">${denRoots.length>0?'5':'4'}</div>Запиши решението</div>
-      <div class="math-kbd"><button onclick="ki('${cfg.areaId}','(')"><b>(</b></button><button onclick="ki('${cfg.areaId}',')')"><b>)</b></button><button onclick="ki('${cfg.areaId}','[')"><b>[</b></button><button onclick="ki('${cfg.areaId}',']')"><b>]</b></button><button onclick="ki('${cfg.areaId}','{')"><b>{</b></button><button onclick="ki('${cfg.areaId}','}')"><b>}</b></button><div class="kbd-sep"></div><button onclick="ki('${cfg.areaId}','; ')"><b>;</b></button><button onclick="ki('${cfg.areaId}',' ∪ ')"><b>∪</b></button><div class="kbd-sep"></div><button onclick="ki('${cfg.areaId}','−∞')"><b>−∞</b></button><button onclick="ki('${cfg.areaId}','+∞')"><b>+∞</b></button><div class="kbd-sep"></div>${roots.map(r=>`<button onclick="ki('${cfg.areaId}','${fmtR(r)}')">${fmtR(r)}</button>`).join('')}<div class="kbd-sep"></div><button onclick="ki('${cfg.areaId}','−')">−</button><button class="kbd-del" onclick="kd('${cfg.areaId}')">⌫</button><button class="kbd-del" onclick="kc('${cfg.areaId}')">Изчисти</button></div>
-      <div class="ans-row"><div class="ans-display" id="${cfg.areaId}-ad" onclick="document.getElementById('${cfg.areaId}-hi').focus()"><span id="${cfg.areaId}-at"></span><span class="cur"></span></div><button class="btn btn-ok" onclick="sbsCheckAnswer('${cfg.areaId}')">✔</button></div>
-      <input id="${cfg.areaId}-hi" style="position:absolute;opacity:0;" oninput="sbsHiSync('${cfg.areaId}')" onkeydown="if(event.key==='Enter')sbsCheckAnswer('${cfg.areaId}')"><div id="${cfg.areaId}-afb"></div>
-    </div>
+      <button class="btn btn-ok" id="${cfg.areaId}-btn-s4b" onclick="checkS4b('${cfg.areaId}')">✔ Провери</button><span id="${cfg.areaId}-s4b-fb"></span>
   </div>`;
-  setTimeout(()=>document.getElementById(`${cfg.areaId}-ri-0`)?.focus(),100);
+
+  // ── S5: Знаци ──
+  stepCounter++;
+  html += `<div class="sbs-step" id="${cfg.areaId}-s5" style="display:none">
+      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Постави знаците в интервалите</div>
+      <div id="${cfg.areaId}-nl-area"></div><button class="btn btn-ok" id="${cfg.areaId}-btn-s5" onclick="checkS5('${cfg.areaId}')">✔ Провери</button><div id="${cfg.areaId}-s5-fb"></div>
+  </div>`;
+
+  // ── S6: Отговор ──
+  stepCounter++;
+  html += `<div class="sbs-step" id="${cfg.areaId}-s6" style="display:none">
+      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Запиши решението</div>
+      ${renderKbd(cfg.areaId, 's6', roots)}
+      <div class="ans-row"><div class="ans-display" id="${cfg.areaId}-s6-disp" onclick="document.getElementById('${cfg.areaId}-s6-hi').focus()"><span id="${cfg.areaId}-s6-at"></span><span class="cur"></span></div><button class="btn btn-ok" onclick="checkS6('${cfg.areaId}')">✔</button></div>
+      <input id="${cfg.areaId}-s6-hi" style="position:absolute;opacity:0;" oninput="sbsHiSync('${cfg.areaId}','s6')" onkeydown="if(event.key==='Enter')checkS6('${cfg.areaId}')"><div id="${cfg.areaId}-s6-fb"></div>
+  </div>`;
+
+  html += `</div>`;
+  area.innerHTML = html;
 }
 
-function ki0(aid,ch){const st=document.getElementById(aid)._sbsState;st._s0Text=(st._s0Text||'')+ch;sbsHiSyncUI0(aid);}
-function kd0(aid){const st=document.getElementById(aid)._sbsState;st._s0Text=kbdDelText(st._s0Text||'');sbsHiSyncUI0(aid);}
-function kc0(aid){document.getElementById(aid)._sbsState._s0Text='';sbsHiSyncUI0(aid);}
-function sbsHiSync0(aid){document.getElementById(aid)._sbsState._s0Text=document.getElementById(`${aid}-s0-hi`).value;sbsHiSyncUI0(aid);}
-function sbsHiSyncUI0(aid){
-  const t=document.getElementById(aid)._sbsState._s0Text||'';
-  document.getElementById(`${aid}-s0-at`).textContent=t;
-  document.getElementById(`${aid}-s0-hi`).value=t;
+/* ── KBD Builders ── */
+function renderKbd(aid, step, roots=[]) {
+    let kbd = `<div class="math-kbd">
+        ${step==='s6'?`<button onclick="ki('${aid}','${step}','(')"><b>(</b></button><button onclick="ki('${aid}','${step}',')')"><b>)</b></button><button onclick="ki('${aid}','${step}','[')"><b>[</b></button><button onclick="ki('${aid}','${step}',']')"><b>]</b></button><button onclick="ki('${aid}','${step}','{')"><b>{</b></button><button onclick="ki('${aid}','${step}','}')"><b>}</b></button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','; ')"><b>;</b></button><button onclick="ki('${aid}','${step}',' ∪ ')"><b>∪</b></button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','−∞')"><b>−∞</b></button><button onclick="ki('${aid}','${step}','+∞')"><b>+∞</b></button><div class="kbd-sep"></div>${roots.map(r=>`<button onclick="ki('${aid}','${step}','${fmtR(r)}')">${fmtR(r)}</button>`).join('')}`
+        :`<button onclick="ki('${aid}','${step}','x')"><i>x</i></button><button onclick="ki('${aid}','${step}','(')">(</button><button onclick="ki('${aid}','${step}',')')">)</button><button onclick="ki('${aid}','${step}','+')">+</button><button onclick="ki('${aid}','${step}','/')">/</button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','²')">²</button><button onclick="ki('${aid}','${step}','³')">³</button><button onclick="ki('${aid}','${step}','⁴')">⁴</button><button onclick="ki('${aid}','${step}','⁵')">⁵</button><button onclick="ki('${aid}','${step}','⁶')">⁶</button><button onclick="ki('${aid}','${step}','⁷')">⁷</button><button onclick="ki('${aid}','${step}','⁸')">⁸</button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','>')">&gt;</button><button onclick="ki('${aid}','${step}','<')">&lt;</button><button onclick="ki('${aid}','${step}','≥')">&ge;</button><button onclick="ki('${aid}','${step}','≤')">&le;</button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','0')">0</button>${[1,2,3,4,5,6,7,8,9].map(d=>`<button onclick="ki('${aid}','${step}','${d}')">${d}</button>`).join('')}<button onclick="ki('${aid}','${step}',',')">,</button>`}
+        <div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','−')">−</button><button class="kbd-del" onclick="kd('${aid}','${step}')">⌫</button><button class="kbd-del" onclick="kc('${aid}','${step}')">Изчисти</button>
+    </div>`;
+    return kbd;
+}
+function renderNumKbd(aid, suffix='') {
+    return `<div class="math-kbd num-kbd" id="${aid}-numkbd${suffix}" style="display:none; justify-content:center; margin-bottom:10px;">
+        <button onclick="kiNum('${aid}','1')">1</button><button onclick="kiNum('${aid}','2')">2</button><button onclick="kiNum('${aid}','3')">3</button><button onclick="kiNum('${aid}','4')">4</button><button onclick="kiNum('${aid}','5')">5</button><button onclick="kiNum('${aid}','6')">6</button><button onclick="kiNum('${aid}','7')">7</button><button onclick="kiNum('${aid}','8')">8</button><button onclick="kiNum('${aid}','9')">9</button><button onclick="kiNum('${aid}','0')">0</button>
+        <div class="kbd-sep"></div><button onclick="kiNum('${aid}','−')">−</button><button onclick="kiNum('${aid}','/')">/</button><button onclick="kiNum('${aid}',',')">,</button><button class="kbd-del" onclick="kdNum('${aid}')">⌫</button>
+    </div>`;
 }
 
-function sbsFocusKbd1(aid, inputEl) {
+/* ── KBD Logic ── */
+function ki(aid, step, ch){const st=document.getElementById(aid)._sbsState;st[`_text${step}`]=(st[`_text${step}`]||'')+ch;syncUI(aid,step);}
+function kd(aid, step){const st=document.getElementById(aid)._sbsState;st[`_text${step}`]=kbdDelText(st[`_text${step}`]||'');syncUI(aid,step);}
+function kc(aid, step){document.getElementById(aid)._sbsState[`_text${step}`]='';syncUI(aid,step);}
+function syncUI(aid, step){
+  const t=document.getElementById(aid)._sbsState[`_text${step}`]||'';
+  const at=document.getElementById(`${aid}-${step}-at`); if(at) at.textContent=t;
+  const hi=document.getElementById(`${aid}-${step}-hi`); if(hi) hi.value=t;
+}
+function sbsHiSync(aid, step){
+  const hi=document.getElementById(`${aid}-${step}-hi`);
+  if(hi){ document.getElementById(aid)._sbsState[`_text${step}`]=hi.value; syncUI(aid, step); }
+}
+
+function focusNum(aid, inputEl) {
   const st = document.getElementById(aid)._sbsState;
   st.activeRootInput = inputEl;
-  document.getElementById(`${aid}-kbd1`).style.display = 'flex';
+  document.querySelectorAll(`#${aid} .num-kbd`).forEach(k => k.style.display='flex');
 }
-function ki1(aid, ch) {
+function kiNum(aid, ch) {
   const st = document.getElementById(aid)._sbsState;
-  if(st.activeRootInput) {
-    st.activeRootInput.value += ch;
-    st.activeRootInput.focus();
-  }
+  if(st.activeRootInput) { st.activeRootInput.value += ch; st.activeRootInput.focus(); }
 }
-function kd1(aid) {
+function kdNum(aid) {
   const st = document.getElementById(aid)._sbsState;
-  if(st.activeRootInput) {
-    st.activeRootInput.value = st.activeRootInput.value.slice(0, -1);
-    st.activeRootInput.focus();
-  }
+  if(st.activeRootInput) { st.activeRootInput.value = st.activeRootInput.value.slice(0, -1); st.activeRootInput.focus(); }
 }
 
-function sbsS0Check(aid){
-  const st=document.getElementById(aid)._sbsState;
-  let val=(st._s0Text||'').replace(/\s+/g,'').toLowerCase();
-  
-  // Нормализираме красивите математически знаци към системния им вид за проверката
-  val = val.replace(/≤/g, '<=').replace(/≥/g, '>=');
-  
-  const ns=st._norm.newSign;
-  const nsHtml = ns.replace('>','&gt;').replace('<','&lt;');
+/* ── Expression Evaluator ── */
+function evalPoly(expr, xVal) {
+    let s = expr.replace(/x/g, `(${xVal})`)
+                .replace(/²/g, '**2').replace(/³/g, '**3').replace(/⁴/g, '**4').replace(/⁵/g, '**5').replace(/⁶/g, '**6').replace(/⁷/g, '**7').replace(/⁸/g, '**8')
+                .replace(/,/g, '.');
+    s = s.replace(/\)\s*\(/g, ')*(').replace(/(\d)\s*\(/g, '$1*(').replace(/\)\s*(\d)/g, ')*$1');
+    try { return Function('"use strict";return (' + s + ')')(); } catch(e) { return NaN; }
+}
 
-  // Проверка за правилен знак накрая
-  const hasCorrectSign = val.endsWith(ns + '0') || val.endsWith(nsHtml + '0');
-  
-  // Проверка дали все още има отрицателен старши коефициент (напр. "-x" или "5-x")
-  const hasNegX = /(?:^|[(])\s*(?:-\s*\d*\s*[xх]|\d+(?:[\.,]\d+)?\s*-\s*\d*\s*[xх])/i.test(val);
+function checkEquivalence(leftSide, factorsArray) {
+    if (leftSide.length === 0) return false;
+    const testPoints = [2.718, -3.141, 0.577];
+    let k_frac = null, k_prod = null;
+    let isMatchFrac = true, isMatchProd = true;
 
-  if(hasCorrectSign && !hasNegX && val.length > 3){
-    st._s0Accepted=true;
-    st.ineqSign=ns;
-    st.isStrict=ns==='>'||ns==='<';
-    st.wantPlus=ns==='>'||ns==='>=';
-    
-    // Обръщаме знаците за интервалите, само ако tSign е отрицателен (ако сме обърнали неравенството)
-    if(!st._s0Flipped && st.intervals && st._norm.tSign < 0) {
-        st.intervals.forEach(i=>i.isPlus=!i.isPlus);
-        st._s0Flipped = true;
+    for (let pt of testPoints) {
+        let uVal = evalPoly(leftSide, pt);
+        let eValFrac = 1, eValProd = 1;
+        
+        for (let f of factorsArray) {
+            let fVal = 1;
+            if (f.quadExpr) fVal = (f.qA * pt * pt + f.qB * pt + f.qC);
+            else fVal = Math.pow((f.a * pt + f.b), f.power || 1);
+            
+            if (f.isDen) eValFrac /= fVal; else eValFrac *= fVal;
+            eValProd *= fVal;
+        }
+
+        if (isNaN(uVal)) return false;
+
+        if (Math.abs(eValFrac) < 1e-9 || Math.abs(uVal) < 1e-9) {
+            if (Math.abs(eValFrac - uVal) > 1e-6) isMatchFrac = false;
+        } else {
+            let curK = uVal / eValFrac;
+            if (curK <= 0) isMatchFrac = false;
+            else if (k_frac === null) k_frac = curK;
+            else if (Math.abs(k_frac - curK) > 0.001 * k_frac) isMatchFrac = false;
+        }
+
+        if (Math.abs(eValProd) < 1e-9 || Math.abs(uVal) < 1e-9) {
+            if (Math.abs(eValProd - uVal) > 1e-6) isMatchProd = false;
+        } else {
+            let curK = uVal / eValProd;
+            if (curK <= 0) isMatchProd = false;
+            else if (k_prod === null) k_prod = curK;
+            else if (Math.abs(k_prod - curK) > 0.001 * k_prod) isMatchProd = false;
+        }
     }
+    return isMatchFrac || isMatchProd;
+}
 
-    // Обновява визуално множителите в Стъпка 1 с новите еквивалентни
-    st.factors.forEach((f, fi) => {
-       const chip = document.getElementById(`${aid}-chip-${fi}`);
-       if (chip) chip.innerHTML = fmtF(st._norm.normFactors[fi]);
+/* ── Checks for Each Step ── */
+function checkS0(aid) {
+    const st = document.getElementById(aid)._sbsState;
+    let val = (st._texts0 || '').replace(/\s+/g,'').toLowerCase().replace(/х/g, 'x').replace(/−/g, '-');
+    val = val.replace(/≤/g, '<=').replace(/≥/g, '>=');
+    
+    const ns = st.currentSign;
+    const nsHtml = ns.replace('>','&gt;').replace('<','&lt;');
+
+    let hasCorrectSign = val.endsWith(ns + '0') || val.endsWith(nsHtml + '0');
+    let signLen = val.endsWith(nsHtml+'0') ? nsHtml.length+1 : (val.endsWith(ns+'0') ? ns.length+1 : 0);
+    let leftSide = signLen > 0 ? val.substring(0, val.length - signLen) : val;
+
+    let isMatch = checkEquivalence(leftSide, st.normFactors);
+
+    if (hasCorrectSign && isMatch) {
+        document.getElementById(`${aid}-s0-fb`).innerHTML = '<span style="color:var(--success);font-weight:bold;margin-left:10px;">✅ Точно така!</span>';
+        document.getElementById(`${aid}-btn-s0`).classList.add('hidden');
+        if (st.hasQuads) document.getElementById(`${aid}-s1`).style.display = 'block';
+        else document.getElementById(`${aid}-s3`).style.display = 'block';
+    } else {
+        document.getElementById(`${aid}-s0-fb`).innerHTML = '<span style="color:var(--danger);font-weight:bold;margin-left:10px;">❌ Грешка в израза или знака.</span>';
+    }
+}
+
+function checkS1(aid) {
+    const st = document.getElementById(aid)._sbsState;
+    let ok = true;
+    let anyFilled = false;
+    st.normFactors.forEach((f, fi) => {
+        if (!f.quadExpr) return;
+        
+        if (f.noRoot) {
+            const inpD = document.getElementById(`${aid}-qd-${fi}`);
+            const selA = document.getElementById(`${aid}-qa-${fi}`);
+            if (inpD.value !== '' || selA.value !== '') anyFilled = true;
+
+            const expectedD = Math.round((f.qB * f.qB - 4 * f.qA * f.qC) * 1000) / 1000;
+            const expectedA = f.qA > 0 ? '>' : '<';
+            
+            const userD = parseInputRoot(inpD.value);
+            let dOk = !isNaN(userD) && Math.abs(userD - expectedD) < 0.01;
+            let aOk = selA.value === expectedA;
+
+            inpD.classList.toggle('ok', dOk); inpD.classList.toggle('err', !dOk && inpD.value !== '');
+            selA.classList.toggle('ok', aOk); selA.classList.toggle('err', !aOk && selA.value !== '');
+            
+            if (dOk && aOk) {
+                document.getElementById(`${aid}-qrfb-${fi}`).textContent = '✅';
+                document.getElementById(`${aid}-qres-${fi}`).style.display = 'inline-block';
+                inpD.disabled = true; selA.disabled = true;
+            } else {
+                document.getElementById(`${aid}-qrfb-${fi}`).textContent = (inpD.value!=='' && selA.value!=='') ? '❌' : '';
+                ok = false;
+            }
+        } else if (f.isQuadWithTwoRoots) {
+            const inp0 = document.getElementById(`${aid}-qri-${fi}-0`);
+            const inp1 = document.getElementById(`${aid}-qri-${fi}-1`);
+            if (inp0.value !== '' || inp1.value !== '') anyFilled = true;
+            const v0 = parseInputRoot(inp0.value);
+            const v1 = parseInputRoot(inp1.value);
+            let good = (Math.abs(v0 - f.r1) < 0.01 && Math.abs(v1 - f.r2) < 0.01) || (Math.abs(v0 - f.r2) < 0.01 && Math.abs(v1 - f.r1) < 0.01);
+            inp0.classList.toggle('ok', good); inp0.classList.toggle('err', !good && inp0.value !== '');
+            inp1.classList.toggle('ok', good); inp1.classList.toggle('err', !good && inp1.value !== '');
+            document.getElementById(`${aid}-qrfb-${fi}`).textContent = good ? '✅' : '❌';
+            if (!good) ok = false;
+        } else if (f.isQuad && f.power === 2) {
+            const inp = document.getElementById(`${aid}-qri-${fi}`);
+            if (inp.value !== '') anyFilled = true;
+            const v = parseInputRoot(inp.value);
+            let good = Math.abs(v - f.root) < 0.01;
+            inp.classList.toggle('ok', good); inp.classList.toggle('err', !good && inp.value !== '');
+            document.getElementById(`${aid}-qrfb-${fi}`).textContent = good ? '✅' : '❌';
+            if (!good) ok = false;
+        }
     });
-    // Обновява заглавното неравенство в панела "Стъпка по стъпка"
-    const exprSpan = document.querySelector(`#${aid} .sbs-expr`);
-    if(exprSpan) exprSpan.innerHTML = `| ${st._norm.exprHTML}`;
 
-    document.getElementById(`${aid}-s0-fb`).innerHTML = '<span style="color:var(--success);font-weight:bold;margin-left:10px;">✅ Точно така!</span>';
-    document.getElementById(`${aid}-step1`).style.display='';
-  } else {
-     let err = 'Грешка в неравенството!';
-     if(!hasCorrectSign) {
-        const displaySign = ns === '<=' ? '≤' : (ns === '>=' ? '≥' : ns);
-        err = `Знакът трябва да бъде ${displaySign} 0.`;
-     }
-     else if(hasNegX) err = 'Останаха множители с отрицателен знак пред x.';
-     document.getElementById(`${aid}-s0-fb`).innerHTML = `<span style="color:var(--danger);font-weight:bold;margin-left:10px;">❌ ${err}</span>`;
-  }
+    if(!anyFilled && st.normFactors.some(f=>f.quadExpr)) return; 
+    
+    if (ok || !st.normFactors.some(f=>f.quadExpr)) {
+        document.getElementById(`${aid}-btn-s1`).classList.add('hidden');
+        document.querySelectorAll(`#${aid} .num-kbd`).forEach(k => k.style.display='none');
+        document.getElementById(`${aid}-s2`).style.display = 'block';
+    }
 }
 
-function sbsS0Skip(aid){
-  const st=document.getElementById(aid)._sbsState;
-  const ns=st._norm.newSign;
-  st.ineqSign=ns;
-  st.isStrict=ns==='>'||ns==='<';
-  st.wantPlus=ns==='>'||ns==='>=';
-  
-  if(!st._s0Flipped && st.intervals && st._norm.tSign < 0) {
-      st.intervals.forEach(i=>i.isPlus=!i.isPlus);
-      st._s0Flipped = true;
-  }
+function checkS2(aid) {
+    const st = document.getElementById(aid)._sbsState;
+    let val = (st._texts2 || '').replace(/\s+/g,'').toLowerCase().replace(/х/g, 'x').replace(/−/g, '-');
+    val = val.replace(/≤/g, '<=').replace(/≥/g, '>=');
+    
+    const ns = st.currentSign;
+    const nsHtml = ns.replace('>','&gt;').replace('<','&lt;');
 
-  // Обновява множителите и заглавието дори и при "Пропускане"
-  st.factors.forEach((f, fi) => {
-     const chip = document.getElementById(`${aid}-chip-${fi}`);
-     if (chip) chip.innerHTML = fmtF(st._norm.normFactors[fi]);
-  });
-  const exprSpan = document.querySelector(`#${aid} .sbs-expr`);
-  if(exprSpan) exprSpan.innerHTML = `| ${st._norm.exprHTML}`;
+    let hasCorrectSign = val.endsWith(ns + '0') || val.endsWith(nsHtml + '0');
+    let signLen = val.endsWith(nsHtml+'0') ? nsHtml.length+1 : (val.endsWith(ns+'0') ? ns.length+1 : 0);
+    let leftSide = signLen > 0 ? val.substring(0, val.length - signLen) : val;
 
-  document.getElementById(`${aid}-step1`).style.display='';
+    let isMatch = checkEquivalence(leftSide, st.activeFactors);
+    if (st.activeFactors.length === 0 && leftSide === '1') isMatch = true;
+
+    if (hasCorrectSign && isMatch) {
+        document.getElementById(`${aid}-s2-fb`).innerHTML = '<span style="color:var(--success);font-weight:bold;margin-left:10px;">✅ Точно така!</span>';
+        document.getElementById(`${aid}-btn-s2`).classList.add('hidden');
+        document.getElementById(`${aid}-s3`).style.display = 'block';
+    } else {
+        document.getElementById(`${aid}-s2-fb`).innerHTML = '<span style="color:var(--danger);font-weight:bold;margin-left:10px;">❌ Провери множителите! (Изпусна ли тези с D&lt;0?)</span>';
+    }
 }
 
-function sbsCheckRoots(aid){
-  const st=document.getElementById(aid)._sbsState;let ok=true;
-  st.factors.forEach((f,fi)=>{
-    const inp=document.getElementById(`${aid}-ri-${fi}`);const v=inp.value.replace(',','.').replace('−','-');
-    const good=Math.abs(parseFloat(v)-f.root)<0.01;
-    inp.classList.toggle('ok',good);inp.classList.toggle('err',!good);
-    document.getElementById(`${aid}-rfb-${fi}`).textContent=good?'✅':'❌';
-    if(!good)ok=false;
-  });
-  if(ok){
-    document.getElementById(`${aid}-btn-r`).classList.add('hidden');
-    document.getElementById(`${aid}-n1`).classList.add('done');
-    const kbd1 = document.getElementById(`${aid}-kbd1`);
-    if(kbd1) kbd1.style.display = 'none';
-    _sbsOpenDotStep(aid);
-  }
-}
-function sbsSkipRoots(aid){document.getElementById(`${aid}-n1`).classList.add('done');_sbsOpenDotStep(aid);}
+function checkS3(aid) {
+    const st = document.getElementById(aid)._sbsState;
+    if (st.roots.length === 0) { openS4(aid); return; }
+    
+    let ok = true;
+    let usedIndices = [];
+    let allFilled = true;
 
-let _sbsOdAnswered={};
-function sbsOdCheck(aid,ri,isDen){
-  const sel=document.getElementById(`${aid}-od-sel-${ri}`);const fb=document.getElementById(`${aid}-od-fb-${ri}`);
-  const correct=isDen?(sel.value==='den'||sel.value==='both'):sel.value==='num';
-  sel.classList.toggle('correct',correct);sel.classList.toggle('wrong',!correct);
-  fb.textContent=correct?'✅':'❌';_sbsOdAnswered[`${aid}-${ri}`]=true;
-  if(document.getElementById(aid)._sbsState.roots.every((_,i)=>_sbsOdAnswered[`${aid}-${i}`])) document.getElementById(`${aid}-od-cont`).style.display='';
-}
-function sbsOdDone(aid){
-  document.getElementById(aid)._sbsState._odDone=true;document.getElementById(`${aid}-n1od`).classList.add('done');
-  document.getElementById(`${aid}-s1b`).style.display='';
+    st.roots.forEach((_, ri) => {
+        const inp = document.getElementById(`${aid}-ri-${ri}`);
+        if(inp.value === '') { allFilled = false; return; }
+        const v = parseInputRoot(inp.value);
+        let matchedIdx = st.roots.findIndex((cr, i) => !usedIndices.includes(i) && Math.abs(cr - v) < 0.01);
+        if (matchedIdx !== -1) {
+            usedIndices.push(matchedIdx);
+            inp.classList.remove('err'); inp.classList.add('ok');
+        } else {
+            inp.classList.remove('ok'); inp.classList.add('err');
+            ok = false;
+        }
+    });
+
+    if (!allFilled) return;
+    const fb = document.getElementById(`${aid}-s3-fb`);
+    if (ok && usedIndices.length === st.roots.length) {
+        fb.innerHTML = '<span style="color:var(--success);font-weight:bold;margin-left:10px;">✅ Вярно!</span>';
+        document.getElementById(`${aid}-btn-s3`).classList.add('hidden');
+        document.querySelectorAll(`#${aid} .num-kbd`).forEach(k => k.style.display='none');
+        openS4(aid);
+    } else {
+        fb.innerHTML = '<span style="color:var(--danger);font-weight:bold;margin-left:10px;">❌ Грешни или повтарящи се корени.</span>';
+    }
 }
 
-function _sbsOpenDotStep(aid){
-  const st=document.getElementById(aid)._sbsState;
-  if(!st.roots.length){_sbsOpenSignStep(aid);return;}
-  if(st.denRoots.length&&!st._odDone) document.getElementById(`${aid}-s1od`).style.display='';
-  else document.getElementById(`${aid}-s1b`).style.display='';
+function openS4(aid) {
+    const st = document.getElementById(aid)._sbsState;
+    if (st.denRoots && st.denRoots.length > 0) document.getElementById(`${aid}-s4a`).style.display = 'block';
+    else document.getElementById(`${aid}-s4b`).style.display = 'block';
 }
+
+function checkS4aItem(aid, ri, isDen) {
+    const sel = document.getElementById(`${aid}-od-sel-${ri}`);
+    const fb = document.getElementById(`${aid}-od-fb-${ri}`);
+    const correct = isDen ? (sel.value==='den'||sel.value==='both') : sel.value==='num';
+    sel.classList.toggle('correct', correct); sel.classList.toggle('wrong', !correct);
+    fb.textContent = correct ? '✅' : '❌';
+    
+    const st = document.getElementById(aid)._sbsState;
+    st[`_od${ri}`] = true;
+    if (st.roots.every((_, i) => st[`_od${i}`])) document.getElementById(`${aid}-btn-s4a`).style.display = '';
+}
+function checkS4a(aid) {
+    document.getElementById(`${aid}-btn-s4a`).classList.add('hidden');
+    document.getElementById(`${aid}-s4b`).style.display = 'block';
+}
+
 function dpSel(aid,idx,val){
   const st=document.getElementById(aid)._sbsState;
   ['open','filled'].forEach(v=>document.getElementById(`${aid}-dp-fill-${idx}-${v}`)?.classList.toggle('selected',v===val));
   st.dotSelFill[idx]=val;
 }
-function sbsCheckDots(aid){
-  const st=document.getElementById(aid)._sbsState;let ok=true;
-  st.dotAnswers.forEach((da,di)=>{
-    const sf=st.dotSelFill[di], sm=document.getElementById(`${aid}-dp-mult-${di}`)?.value;
-    const fOk=sf===da.fill, mOk=(parseInt(sm)%2!==0)===(da.shape==='circle');
-    document.getElementById(`${aid}-dp-fb-${di}`).textContent=fOk&&mOk?'✅':'❌';
-    if(!fOk||!mOk)ok=false;
-  });
-  if(ok){document.getElementById(`${aid}-btn-dp`).classList.add('hidden');document.getElementById(`${aid}-n1b`).classList.add('done');_sbsOpenSignStep(aid);}
+
+function checkS4b(aid) {
+    const st=document.getElementById(aid)._sbsState; let ok=true;
+    st.dotAnswers.forEach((da,di)=>{
+        const sf=st.dotSelFill[di], sm=document.getElementById(`${aid}-dp-mult-${di}`)?.value;
+        const fOk = sf === da.fill;
+        const mOk = (parseInt(sm)%2 !== 0) === (da.shape==='circle');
+        document.getElementById(`${aid}-dp-fb-${di}`).textContent = (fOk&&mOk) ? '✅' : '❌';
+        if(!fOk || !mOk) ok=false;
+    });
+    if(ok){
+        document.getElementById(`${aid}-btn-s4b`).classList.add('hidden');
+        document.getElementById(`${aid}-s5`).style.display = 'block';
+        buildSBSNL(aid);
+    }
 }
-function _sbsOpenSignStep(aid){
-  document.getElementById(`${aid}-s2`).style.display='';buildSBSNL(aid);
-}
+
 function buildSBSNL(aid){
   const st=document.getElementById(aid)._sbsState;const cont=document.getElementById(`${aid}-nl-area`);
   if(!st.roots.length){
@@ -1234,68 +1434,55 @@ function buildSBSNL(aid){
   });
   cont.innerHTML=html+`</div></div>`;
 }
+
 function sbsSelSign(aid,idx,sign){
   document.getElementById(aid)._sbsState.signAnswers[idx]=sign;
   const ind=document.getElementById(`${aid}-ind-${idx}`);if(ind){ind.textContent=sign==='plus'?'+':'−';ind.style.color=sign==='plus'?'var(--success)':'var(--danger)';}
 }
-function sbsCheckSigns(aid){
+
+function checkS5(aid) {
   const st=document.getElementById(aid)._sbsState;let ok=true;
   st.intervals.forEach((inv,i)=>{if(st.signAnswers[i]!==(inv.isPlus?'plus':'minus'))ok=false;});
   if(ok){
-    document.getElementById(`${aid}-btn-s`).classList.add('hidden');
-    document.getElementById(`${aid}-n2`).classList.add('done');
-    document.getElementById(`${aid}-s3`).style.display='';
-    const srow = document.getElementById(`${aid}-srow`);
-    if(srow) srow.style.display='none';
-    document.getElementById(`${aid}-sfb`).innerHTML='<span style="color:var(--success);font-weight:bold;margin-left:10px;">✅ Точно така!</span>';
+    document.getElementById(`${aid}-btn-s5`).classList.add('hidden');
+    document.getElementById(`${aid}-s6`).style.display='block';
+    const srow = document.getElementById(`${aid}-srow`); if(srow) srow.style.display='none';
+    document.getElementById(`${aid}-s5-fb`).innerHTML='<span style="color:var(--success);font-weight:bold;margin-left:10px;">✅ Точно така!</span>';
 
-    // Изчертаване на "змиорката"
     const svg = document.getElementById(`${aid}-nlsvg`);
     if(svg && st.roots.length > 0) {
-      const W = 600;
-      const minV = st.roots[0], maxV = st.roots[st.roots.length-1];
-      const pad = Math.max(3, (maxV-minV)*.28);
-      const range = (maxV+pad) - (minV-pad);
+      const W = 600, minV = st.roots[0], maxV = st.roots[st.roots.length-1];
+      const pad = Math.max(3, (maxV-minV)*.28), range = (maxV+pad) - (minV-pad);
       const pts = [0, ...st.roots.map(r=>((r-(minV-pad))/range)*W), W];
 
       st.intervals.forEach((inv, i) => {
-        const midX = (pts[i] + pts[i+1]) / 2;
-        const isPlus = inv.isPlus;
+        const midX = (pts[i] + pts[i+1]) / 2, isPlus = inv.isPlus;
         const path = document.createElementNS('http://www.w3.org/2000/svg','path');
         path.setAttribute('d',`M ${pts[i]} 60 Q ${midX} ${isPlus?15:105} ${pts[i+1]} 60`);
         path.setAttribute('fill',isPlus?'rgba(46,204,113,.18)':'rgba(231,76,60,.18)');
-        path.setAttribute('stroke',isPlus?'#2ecc71':'#e74c3c');
-        path.setAttribute('stroke-width','2');
-        
+        path.setAttribute('stroke',isPlus?'#2ecc71':'#e74c3c'); path.setAttribute('stroke-width','2');
         const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
-        txt.setAttribute('x', midX);
-        txt.setAttribute('y', isPlus ? 40 : 85);
-        txt.setAttribute('text-anchor', 'middle');
-        txt.setAttribute('font-size', '21');
-        txt.setAttribute('font-weight', 'bold');
-        txt.setAttribute('fill', isPlus ? '#2ecc71' : '#e74c3c');
+        txt.setAttribute('x', midX); txt.setAttribute('y', isPlus ? 40 : 85);
+        txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('font-size', '21');
+        txt.setAttribute('font-weight', 'bold'); txt.setAttribute('fill', isPlus ? '#2ecc71' : '#e74c3c');
         txt.textContent = isPlus ? '+' : '−';
-        
-        svg.appendChild(path);
-        svg.appendChild(txt);
+        svg.appendChild(path); svg.appendChild(txt);
       });
     }
-  }
-  else document.getElementById(`${aid}-sfb`).innerHTML='<span style="color:var(--danger);font-weight:bold;margin-left:10px;">❌ Има грешни знаци! Опитай пак.</span>';
+  } else document.getElementById(`${aid}-s5-fb`).innerHTML='<span style="color:var(--danger);font-weight:bold;margin-left:10px;">❌ Има грешни знаци! Опитай пак.</span>';
 }
-function ki(aid,ch){const st=document.getElementById(aid)._sbsState;st.answerText+=ch;sbsHiSyncUI(aid);}
-function kd(aid){const st=document.getElementById(aid)._sbsState;st.answerText=kbdDelText(st.answerText);sbsHiSyncUI(aid);}
-function kc(aid){document.getElementById(aid)._sbsState.answerText='';sbsHiSyncUI(aid);}
-function sbsHiSync(aid){document.getElementById(aid)._sbsState.answerText=document.getElementById(`${aid}-hi`).value;sbsHiSyncUI(aid);}
-function sbsHiSyncUI(aid){
-  const t=document.getElementById(aid)._sbsState.answerText;
-  document.getElementById(`${aid}-at`).textContent=t;document.getElementById(`${aid}-hi`).value=t;
-}
-function sbsCheckAnswer(aid){
-  const st=document.getElementById(aid)._sbsState;const val=st.answerText;
-  if(normalizeAnswer(val)===normalizeAnswer(solPlain(st.sol))){
-    document.getElementById(`${aid}-afb`).innerHTML='<div class="fb ok">Браво! Верен отговор!</div>';scoreTaskDone(true);
-  } else document.getElementById(`${aid}-afb`).innerHTML='<div class="fb err">Грешка.</div>';
+
+function checkS6(aid) {
+  const st=document.getElementById(aid)._sbsState; 
+  const val = st._texts6 || '';
+  if(normalizeAnswer(val) === normalizeAnswer(solPlain(st.sol))){
+    document.getElementById(`${aid}-s6-fb`).innerHTML=`
+       <div class="fb ok" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+          <span>Браво! Верен отговор!</span>
+          <button class="btn btn-ok" style="padding:6px 14px; font-size:0.9rem;" onclick="genCurrentType()">Следваща задача ➡</button>
+       </div>`;
+    scoreTaskDone(true);
+  } else document.getElementById(`${aid}-s6-fb`).innerHTML='<div class="fb err">Грешка.</div>';
 }
 
 /* ═══════════════════════════════════════════════
@@ -1303,12 +1490,13 @@ function sbsCheckAnswer(aid){
 ═══════════════════════════════════════════════ */
 let LS={};
 function genLinear(){
+  hideMenu();
   const count=parseInt(document.getElementById('lin-count').value), usePow=document.getElementById('lin-powers').checked, useFrac=document.getElementById('lin-frac').checked;
   let pool=[1,1];if(usePow)pool.push(2,3,4,5,6,7,8);
   let roots=[];for(let i=0;roots.length<count;i++){let r=useFrac&&ri(0,2)===0?ri(-14,14)/2:ri(-7,7);if(!roots.includes(r))roots.push(r);}
   roots.sort((a,b)=>a-b);
   const _ls=document.getElementById('lin-sign').value, ineqSign=_ls==='random'?['>','<','>=','<='][ri(0,3)]:_ls;
-  let factors=roots.map(r=>{const a=Number.isInteger(r)?(ri(0,1)===0?-1:1):1;return{a,b:-r*a,power:pool[ri(0,pool.length-1)],root:r};});
+  let factors=roots.map(r=>{const a=Number.isInteger(r)?(ri(0,1)===0?-1:1):(ri(0,1)===0?-2:2);return{a,b:-r*a,power:pool[ri(0,pool.length-1)],root:r};});
   const rootsMap={};factors.forEach(f=>rootsMap[f.root.toFixed(4)]=f.power);
   const signs=intervalSigns(factors,roots,rootsMap);
   LS={factors,roots,rootsMap,ineqSign,sol:buildSol(roots,signs,ineqSign,[],rootsMap),signs};
@@ -1317,23 +1505,22 @@ function genLinear(){
   document.getElementById('lin-sbs').classList.add('hidden');
   
   const btnAns = document.getElementById('lin-btn-ans');
-  btnAns.classList.remove('hidden');
-  btnAns.innerHTML = "👁 Покажи решението";
-  btnAns.onclick = showLinearAnswer;
-  
+  btnAns.classList.remove('hidden'); btnAns.innerHTML = "👁 Покажи решението"; btnAns.onclick = showLinearAnswer;
+  document.getElementById('lin-btn-sbs').classList.remove('hidden');
   linSBSOpen=false;timerStart();
 }
 function showLinearAnswer(){
   if(document.getElementById('lin-btn-ans').innerHTML.includes('Следваща')) return genLinear();
-  SCORE.taskPts = 0; scoreTaskDone(false); // Зануляваме точките за тази задача
+  SCORE.taskPts = 0; scoreTaskDone(false);
   const isS=LS.ineqSign==='>'||LS.ineqSign==='<';
   drawNL('lin-nl',LS.roots.map(r=>({val:r,open:isS,shape:(LS.rootsMap[r.toFixed(4)]||1)%2===0?'diamond':'circle'})),LS.signs);
   document.getElementById('lin-ans-text').innerHTML=LS.sol;
   document.getElementById('lin-answer-area').classList.remove('hidden');
-  
+  document.getElementById('lin-btn-sbs').classList.add('hidden');
+  document.getElementById('lin-sbs').classList.add('hidden');
+  linSBSOpen=false;
   const btnAns = document.getElementById('lin-btn-ans');
-  btnAns.innerHTML = "🎲 Следваща задача";
-  btnAns.onclick = genLinear;
+  btnAns.innerHTML = "🎲 Следваща задача ➡"; btnAns.onclick = genLinear;
 }
 function toggleLinearSBS(){
   linSBSOpen=!linSBSOpen;
@@ -1342,26 +1529,108 @@ function toggleLinearSBS(){
   else document.getElementById('lin-sbs').classList.add('hidden');
 }
 
-/* QUAD FACTOR is skipped for brevity here but operates identically using buildSBS/custom build */
-function genQuadFactor(){ switchTab('linear'); } /* Fallback stub if needed, UI works out of box */
+/* ── QUADRATIC FACTORS ── */
+let QF={};
+function genQuadFactor() {
+    hideMenu();
+    const type = document.getElementById('qf-type').value, extra = document.getElementById('qf-extra').checked;
+    const _fs = document.getElementById('qf-sign').value, ineqSign = _fs === 'random' ? ['>','<','>=','<='][ri(0,3)] : _fs;
+    let qType = type === 'random' ? ['pos', 'zero', 'neg'][ri(0,2)] : type;
+    let a = ri(0,1)===0 ? 1 : -1, factors = [], allRoots = [];
+    
+    if (qType === 'pos') {
+        let r1 = ri(-4, 4), r2 = ri(-4, 4); while(r1 === r2) r2 = ri(-4, 4);
+        let b = -a*(r1 + r2), c = a*r1*r2;
+        factors.push({a: a, b: 0, power: 1, isQuadWithTwoRoots: true, r1: r1, r2: r2, qA: a, qB: b, qC: c, quadExpr: formatQuad(a,b,c)});
+        allRoots.push(r1, r2);
+    } else if (qType === 'zero') {
+        let r = ri(-5, 5), b = -2*a*r, c = a*r*r;
+        factors.push({a: a, b: 0, power: 2, root: r, isQuad: true, qA: a, qB: b, qC: c, quadExpr: formatQuad(a,b,c)});
+        allRoots.push(r);
+    } else {
+        let r = ri(-3, 3), k = a * ri(1, 4), b = -2*a*r, c = a*r*r + k;
+        factors.push({a: a, b: 0, power: 1, noRoot: true, qA: a, qB: b, qC: c, quadExpr: formatQuad(a,b,c)});
+    }
+    
+    if (extra) {
+        let r3 = ri(-6, 6), linA = ri(0,1)===0 ? 1 : -1;
+        factors.push({a: linA, b: -linA*r3, power: 1, root: r3}); allRoots.push(r3);
+    }
+    
+    allRoots.sort((x,y)=>x-y);
+    const rootsMap = {};
+    factors.forEach(f => {
+        if (f.noRoot) return;
+        if (f.isQuadWithTwoRoots) { rootsMap[f.r1.toFixed(4)] = (rootsMap[f.r1.toFixed(4)]||0) + 1; rootsMap[f.r2.toFixed(4)] = (rootsMap[f.r2.toFixed(4)]||0) + 1; } 
+        else { rootsMap[f.root.toFixed(4)] = (rootsMap[f.root.toFixed(4)]||0) + f.power; }
+    });
+    
+    const uniqueRoots = [...new Set(allRoots.map(r=>parseFloat(r.toFixed(4))))].sort((x,y)=>x-y);
+    
+    let cur = true; 
+    let arr = [{isPlus: true}];
+    for(let i = uniqueRoots.length-1; i>=0; i--){
+        if ((rootsMap[uniqueRoots[i].toFixed(4)]||1)%2 !== 0) cur = !cur;
+        arr.push({isPlus: cur});
+    }
+    let signs = arr.reverse();
+    
+    let tSign = 1; factors.forEach(f => { if (f.quadExpr) { if(f.qA < 0) tSign*=-1; } else { if(f.a < 0) tSign*=Math.pow(-1, f.power||1); } });
+    let effSign = tSign < 0 ? ({'>=':'<=','<=':'>=','>':'<','<':'>'}[ineqSign]) : ineqSign;
+    let sol = buildSol(uniqueRoots, signs, effSign, [], rootsMap);
+
+    QF = {factors, roots: uniqueRoots, rootsMap, ineqSign, sol, signs};
+    document.getElementById('qf-expr').innerHTML = `${fmtExpr(factors)} <span style="font-style:normal;">${SIGNS[ineqSign]}</span> 0`;
+    document.getElementById('qf-problem').classList.remove('hidden'); document.getElementById('qf-answer-area').classList.add('hidden'); document.getElementById('qf-sbs').classList.add('hidden');
+    const btnAns = document.getElementById('qf-btn-ans');
+    btnAns.classList.remove('hidden'); btnAns.innerHTML = "👁 Покажи решението"; btnAns.onclick = showQFAnswer;
+    document.getElementById('qf-btn-sbs').classList.remove('hidden');
+    qfSBSOpen=false;timerStart();
+}
+
+function showQFAnswer() {
+    if(document.getElementById('qf-btn-ans').innerHTML.includes('Следваща')) return genQuadFactor();
+    SCORE.taskPts = 0; scoreTaskDone(false);
+    
+    let tSign = 1; QF.factors.forEach(f => { if (f.quadExpr) { if(f.qA < 0) tSign*=-1; } else { if(f.a < 0) tSign*=Math.pow(-1, f.power||1); } });
+    let effSign = tSign < 0 ? ({'>=':'<=','<=':'>=','>':'<','<':'>'}[QF.ineqSign]) : QF.ineqSign;
+    const isS = effSign==='>'||effSign==='<';
+    
+    drawNL('qf-nl', QF.roots.map(r=>({val:r, open:isS, shape:(QF.rootsMap[r.toFixed(4)]||1)%2===0?'diamond':'circle'})), QF.signs);
+    document.getElementById('qf-ans-text').innerHTML=QF.sol;
+    document.getElementById('qf-answer-area').classList.remove('hidden');
+    document.getElementById('qf-btn-sbs').classList.add('hidden');
+    document.getElementById('qf-sbs').classList.add('hidden');
+    qfSBSOpen=false;
+    const btnAns = document.getElementById('qf-btn-ans');
+    btnAns.innerHTML = "🎲 Следваща задача ➡"; btnAns.onclick = genQuadFactor;
+}
+
+function toggleQFSBS() {
+    qfSBSOpen=!qfSBSOpen;
+    document.getElementById('qf-btn-sbs').innerHTML=qfSBSOpen?'⬆ Стъпка по стъпка':'📋 Стъпка по стъпка';
+    if(qfSBSOpen){ document.getElementById('qf-sbs').classList.remove('hidden'); buildSBS({areaId:'qf-sbs', exprHTML:`${fmtExpr(QF.factors)} ${SIGNS[QF.ineqSign]} 0`, ...QF});
+    } else document.getElementById('qf-sbs').classList.add('hidden');
+}
 
 /* ── BIQUADRATIC ── */
 let BQ={};
 function genBiquad(){
+  hideMenu();
   const types=ri(0,3);let t1,t2,a=ri(1,2)*(ri(0,1)===0?-1:1);
   if(types===0){t1=ri(1,4);t2=ri(t1+1,7);}else if(types===1){t1=0;t2=ri(1,5);}else if(types===2){t1=-ri(1,5);t2=ri(1,5);}else{t1=-ri(2,5);t2=-ri(1,Math.abs(t1)-1);}
-  const A=a,B=-a*(t1+t2),C=a*t1*t2;
-  const _fs=document.getElementById('bq-sign').value, ineqSign=_fs==='random'?['>','<','>=','<='][ri(0,3)]:_fs;
-  let s='';if(A!==0)s+=A===1?'<i>x</i>⁴':(A===-1?'−<i>x</i>⁴':`${A}<i>x</i>⁴`);if(B!==0)s+=` ${B>0?'+':'-'} ${Math.abs(B)===1?'<i>x</i>²':`${Math.abs(B)}<i>x</i>²`}`;if(C!==0)s+=` ${C>0?'+':'-'} ${Math.abs(C)}`;
+  let A=a,B=-a*(t1+t2),C=a*t1*t2;
+  let ineqSign=document.getElementById('bq-sign').value; 
+  if(ineqSign==='random') ineqSign=['>','<','>=','<='][ri(0,3)];
+  
+  if (A < 0) { A = -A; B = -B; C = -C; ineqSign = ({'>':'<','<':'>','>=':'<=','<=':'>='})[ineqSign]; }
+  let s='';if(A!==0)s+=A===1?'<i>x</i>⁴':`${A}<i>x</i>⁴`;if(B!==0)s+=` ${B>0?'+':'-'} ${Math.abs(B)===1?'<i>x</i>²':`${Math.abs(B)}<i>x</i>²`}`;if(C!==0)s+=` ${C>0?'+':'-'} ${Math.abs(C)}`;
   BQ={A,B,C,t1,t2,ineqSign,exprHTML:`${s.trim()} <span style="font-style:normal;">${SIGNS[ineqSign]}</span> 0`};
   document.getElementById('bq-expr').innerHTML=BQ.exprHTML;document.getElementById('bq-problem').classList.remove('hidden');
   document.getElementById('bq-answer-area').classList.add('hidden');document.getElementById('bq-sbs').classList.add('hidden');
-  
   const btnAns = document.getElementById('bq-btn-ans');
-  btnAns.classList.remove('hidden');
-  btnAns.innerHTML = "👁 Покажи решението";
-  btnAns.onclick = showBQAnswer;
-
+  btnAns.classList.remove('hidden'); btnAns.innerHTML = "👁 Покажи решението"; btnAns.onclick = showBQAnswer;
+  document.getElementById('bq-btn-sbs').classList.remove('hidden');
   bqSBSOpen=false;timerStart();
 }
 function computeBQState(){
@@ -1375,15 +1644,16 @@ function computeBQState(){
 }
 function showBQAnswer(){
   if(document.getElementById('bq-btn-ans').innerHTML.includes('Следваща')) return genBiquad();
-  SCORE.taskPts = 0; scoreTaskDone(false); // Зануляваме точките
+  SCORE.taskPts = 0; scoreTaskDone(false);
   const st=computeBQState(), isS=BQ.ineqSign==='>'||BQ.ineqSign==='<';
   drawNL('bq-nl',st.xRoots.map(r=>({val:r,open:isS,shape:(st.rootsMap[r.toFixed(4)]||1)%2===0?'diamond':'circle'})),st.signs);
   document.getElementById('bq-ans-text').innerHTML=st.sol;
   document.getElementById('bq-answer-area').classList.remove('hidden');
-  
+  document.getElementById('bq-btn-sbs').classList.add('hidden');
+  document.getElementById('bq-sbs').classList.add('hidden');
+  bqSBSOpen=false;
   const btnAns = document.getElementById('bq-btn-ans');
-  btnAns.innerHTML = "🎲 Следваща задача";
-  btnAns.onclick = genBiquad;
+  btnAns.innerHTML = "🎲 Следваща задача ➡"; btnAns.onclick = genBiquad;
 }
 function toggleBQSBS(){
   const area=document.getElementById('bq-sbs');bqSBSOpen=!bqSBSOpen;
@@ -1397,6 +1667,7 @@ function toggleBQSBS(){
 /* ── FRACTIONAL ── */
 let FRAC={};
 function genFractional(){
+  hideMenu();
   const numC=parseInt(document.getElementById('frac-num').value), denC=parseInt(document.getElementById('frac-den').value);
   const _fs=document.getElementById('frac-sign').value, ineqSign=_fs==='random'?['>','<','>=','<='][ri(0,3)]:_fs;
   let allRoots=[];for(let i=0;i<numC+denC;i++){let r=ri(-7,7);while(allRoots.includes(r))r=ri(-7,7);allRoots.push(r);}
@@ -1412,23 +1683,26 @@ function genFractional(){
   document.getElementById('frac-sbs').classList.add('hidden');
 
   const btnAns = document.getElementById('frac-btn-ans');
-  btnAns.classList.remove('hidden');
-  btnAns.innerHTML = "👁 Покажи решението";
-  btnAns.onclick = showFracAnswer;
-
+  btnAns.classList.remove('hidden'); btnAns.innerHTML = "👁 Покажи решението"; btnAns.onclick = showFracAnswer;
+  document.getElementById('frac-btn-sbs').classList.remove('hidden');
   fracSBSOpen=false;timerStart();
 }
 function showFracAnswer(){
   if(document.getElementById('frac-btn-ans').innerHTML.includes('Следваща')) return genFractional();
-  SCORE.taskPts = 0; scoreTaskDone(false); // Зануляваме точките
-  const isS=FRAC.ineqSign==='>'||FRAC.ineqSign==='<';
+  SCORE.taskPts = 0; scoreTaskDone(false);
+  
+  let tSign = 1; FRAC.factors.forEach(f => { if(f.a < 0) tSign*=Math.pow(-1, f.power||1); });
+  let effSign = tSign < 0 ? ({'>=':'<=','<=':'>=','>':'<','<':'>'}[FRAC.ineqSign]) : FRAC.ineqSign;
+  const isS=effSign==='>'||effSign==='<';
+  
   drawNL('frac-nl',FRAC.roots.map(r=>({val:r,open:isS||FRAC.denRoots.includes(r),shape:'circle'})),FRAC.signs);
   document.getElementById('frac-ans-text').innerHTML=FRAC.sol;
   document.getElementById('frac-answer-area').classList.remove('hidden');
-  
+  document.getElementById('frac-btn-sbs').classList.add('hidden');
+  document.getElementById('frac-sbs').classList.add('hidden');
+  fracSBSOpen=false;
   const btnAns = document.getElementById('frac-btn-ans');
-  btnAns.innerHTML = "🎲 Следваща задача";
-  btnAns.onclick = genFractional;
+  btnAns.innerHTML = "🎲 Следваща задача ➡"; btnAns.onclick = genFractional;
 }
 function toggleFracSBS(){
   const area=document.getElementById('frac-sbs');fracSBSOpen=!fracSBSOpen;
@@ -1441,7 +1715,7 @@ function toggleFracSBS(){
 
 window.onload = () => {
   scoreInit();
-  genLinear();
+  returnToMenu(); // По подразбиране зареждаме менюто, без да стартираме директно задача
 };
 </script>
 </body>

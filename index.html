@@ -57,6 +57,15 @@ body.light .fb.part{background:rgba(243,156,18,.1);color:#6b4a00;}
 body.light .gen-answer-box{background:#e8f0ff;color:#1a3080;}
 body.light .answer-result{background:#e8f0ff;color:#1a3080;}
 
+/* Специфични стилове за избрани и проверени полета в Светла тема */
+body.light .dp-btn.selected {border-color:var(--accent); background:rgba(64,85,232,.12); color:var(--accent);}
+body.light .sbs-input.ok, body.light .ans-display.ok, body.light .qdlg-input.ok {border-color:var(--success); background:rgba(46,204,113,.12);}
+body.light .sbs-input.err, body.light .ans-display.err, body.light .qdlg-input.err {border-color:var(--danger); background:rgba(231,76,60,.12);}
+body.light .qdlg-sel.ok, body.light .dp-mult.correct {border-color:var(--success); background:rgba(46,204,113,.12); color:#1a6b3a;}
+body.light .qdlg-sel.err, body.light .dp-mult.wrong {border-color:var(--danger); background:rgba(231,76,60,.12); color:#8b1a1a;}
+body.light .dp-btn.correct {border-color:var(--success)!important; background:rgba(46,204,113,.15)!important; color:#1a6b3a!important;}
+body.light .dp-btn.wrong {border-color:var(--danger)!important; background:rgba(231,76,60,.15)!important; color:#8b1a1a!important;}
+
 /* ── Theme toggle button ── */
 .theme-toggle{
   position:absolute;right:16px;top:50%;transform:translateY(-50%);

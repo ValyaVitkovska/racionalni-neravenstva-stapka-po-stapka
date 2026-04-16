@@ -575,10 +575,14 @@ header .subtitle {font-size:1.05rem;font-weight:400;color:var(--text2);margin-to
   <div id="tab-fractional" class="tab-panel">
     <div class="card">
       <div class="controls-bar">
-        <span class="ctrl-label">Числител:</span>
-        <select class="ctrl-select" id="frac-num"><option value="1">1 множ.</option><option value="2" selected>2 множ.</option><option value="3">3 множ.</option></select>
-        <span class="ctrl-label">Знаменател:</span>
-        <select class="ctrl-select" id="frac-den"><option value="1" selected>1 множ.</option><option value="2">2 множ.</option></select>
+        <span class="ctrl-label">Числител (лин.):</span>
+        <select class="ctrl-select" id="frac-num"><option value="0">0</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+        <label class="ctrl-check"><input type="checkbox" id="frac-qnum"> +Квадр.</label>
+        
+        <span class="ctrl-label">Знаменател (лин.):</span>
+        <select class="ctrl-select" id="frac-den"><option value="1" selected>1</option><option value="2">2</option></select>
+        <label class="ctrl-check"><input type="checkbox" id="frac-qden"> +Квадр.</label>
+
         <span class="ctrl-label">Знак:</span>
         <select class="ctrl-select" id="frac-sign"><option value="random">Случаен</option><option value=">">&gt; 0</option><option value="<">&lt; 0</option><option value=">=">&ge; 0</option><option value="<=">&le; 0</option></select>
         <button class="btn btn-gen" onclick="genFractional()">🎲 Генерирай задача</button>
@@ -647,6 +651,33 @@ function genCurrentType() {
 }
 
 /* ── Answer Normalization ── */
+function parseInputRoot(val) {
+    if(!val) return NaN;
+    let s = val.replace(/\s+/g,'').replace(/,/g,'.').replace(/−/g,'-');
+    let isNeg = s.startsWith('-');
+    if (isNeg) s = s.substring(1);
+
+    let valResult = NaN;
+    if (s.includes('√')) {
+        let parts = s.split('√');
+        let coeff = (parts[0] === '' || parts[0] === '-') ? 1 : parseFloat(parts[0]);
+        let inside = parseFloat(parts[1]);
+        if (!isNaN(inside)) {
+            valResult = coeff * Math.sqrt(inside);
+        }
+    } else if (s.includes('/')) {
+        let parts = s.split('/');
+        if (parts.length === 2 && parts[0] !== '' && parts[1] !== '' && parseFloat(parts[1]) !== 0) {
+            valResult = parseFloat(parts[0]) / parseFloat(parts[1]);
+        }
+    } else {
+        valResult = parseFloat(s);
+    }
+    
+    if (!isNaN(valResult)) return isNeg ? -valResult : valResult;
+    return NaN;
+}
+
 function normalizeAnswer(s){
   s=s.replace(/^[xх]\s*[∈∊]\s*/i,'').replace(/–/g,'-').replace(/\+∞/g,'+inf').replace(/[−-]∞/g,'-inf').replace(/∞/g,'inf').replace(/−/g,'-');
   s=s.replace(/(\d),(\d)/g, '$1.$2');
@@ -659,22 +690,19 @@ function _mergeAdjacentIntervals(s){
   if(parts.length===0)return s;
   
   function parseInterval(p){
-    const m=p.match(/^([\[({])([-+\d.infnan/]+);([-+\d.infnan/]+)([\])}])$/i);
+    const m=p.match(/^([\[({])(.*?);(.*?)([\])}])$/i);
     if(!m)return null;
     function pN(str) {
+        str = str.trim();
         if(str==='-inf') return -Infinity;
         if(str==='+inf'||str==='inf') return Infinity;
-        if(str.includes('/')) {
-            let pts = str.split('/');
-            return parseFloat(pts[0])/parseFloat(pts[1]);
-        }
-        return parseFloat(str);
+        return parseInputRoot(str);
     }
     return{lo:pN(m[2]),hi:pN(m[3]),loOpen:m[1]==='('||m[1]==='{',hiOpen:m[4]===')'||m[4]==='}'};
   }
   
   const parsed=parts.map(parseInterval);
-  if(parsed.some(p=>p===null)) return s;
+  if(parsed.some(p=>p===null || isNaN(p.lo) || isNaN(p.hi))) return s;
   
   parsed.sort((a,b)=>a.lo-b.lo||(a.loOpen?1:-1));
   const merged=[Object.assign({},parsed[0])];
@@ -688,13 +716,7 @@ function _mergeAdjacentIntervals(s){
   function fN(v) {
       if(v===-Infinity) return '-inf';
       if(v===Infinity) return 'inf';
-      if(Number.isInteger(v)) return String(v);
-      for(let d=2; d<=10; d++) {
-         if(Math.abs(Math.abs(v) - Math.round(Math.abs(v)*d)/d) < 1e-9) {
-             return (v<0?'-':'') + Math.round(Math.abs(v)*d) + '/' + d;
-         }
-      }
-      return parseFloat(v.toFixed(4)).toString();
+      return stripHTML(fmtSqrtR(v));
   }
   return merged.map(({lo,hi,loOpen,hiOpen})=>`${loOpen?'(':'['}${fN(lo)};${fN(hi)}${hiOpen?')':']'}`).join('u');
 }
@@ -863,7 +885,11 @@ function fmtF(f){
 }
 function fmtNum(n){if(Number.isInteger(n))return String(n);const g=(a,b)=>b===0?a:g(b,a%b);const num=Math.round(n*1000),gv=g(Math.abs(num),1000);return `<sup>${num/gv}</sup>⁄<sub>${1000/gv}</sub>`;}
 function fmtExpr(factors){return factors.map(f=>fmtF(f)).join('');}
-function fmtFrac(numF,denF){return `<span class="math-frac"><span class="frac-num">${fmtExpr(numF)}</span><span class="frac-den">${fmtExpr(denF)}</span></span>`;}
+function fmtFrac(numF,denF){
+  const n = numF.length ? fmtExpr(numF) : '1';
+  const d = denF.length ? fmtExpr(denF) : '1';
+  return `<span class="math-frac"><span class="frac-num">${n}</span><span class="frac-den">${d}</span></span>`;
+}
 function fmtR(v){
   if(Number.isInteger(v)) return String(v);
   const sign = v < 0 ? '−' : '';
@@ -892,19 +918,6 @@ function fmtSqrtR(r){
 function stripHTML(s){return s.replace(/<[^>]+>/g,'');}
 function stripX2(s){return s.replace(/^[xх]\s*[∈∊]\s*/i,'');}
 function solPlain(sol){return stripHTML(stripX2(sol));}
-
-function parseInputRoot(val) {
-    if(!val) return NaN;
-    let s = val.replace(/\s+/g,'').replace(/,/g,'.').replace(/−/g,'-');
-    if(s.includes('/')) {
-        let parts = s.split('/');
-        if(parts.length === 2 && parts[0] !== '' && parts[1] !== '' && parseFloat(parts[1]) !== 0) {
-            return parseFloat(parts[0]) / parseFloat(parts[1]);
-        }
-        return NaN;
-    }
-    return parseFloat(s);
-}
 
 function buildSol(allRoots,signIntervals,ineqSign,denRoots=[],rootsMap={}){
   const isS=ineqSign==='>'||ineqSign==='<', wP=ineqSign==='>'||ineqSign==='>=';
@@ -970,7 +983,7 @@ function drawNL(id,rootDefs,signIntervals){
 ═══════════════════════════════════════════════ */
 function buildSBS(cfg){
   const area = document.getElementById(cfg.areaId);
-  const { factors, roots, rootsMap, ineqSign, sol, denRoots=[] } = cfg;
+  const { factors, roots, rootsMap, ineqSign, sol } = cfg;
 
   const hasNegLead = factors.some(f => f.quadExpr ? (f.qA < 0) : (f.a < 0));
   const hasQuads = factors.some(f => f.quadExpr !== undefined);
@@ -1004,6 +1017,15 @@ function buildSBS(cfg){
       }
   });
 
+  let numRootsArr = [], denRootsArr = [];
+  factors.forEach(f => {
+      if (f.noRoot) return;
+      let arr = f.isDen ? denRootsArr : numRootsArr;
+      if (f.isQuadWithTwoRoots) arr.push(f.r1, f.r2);
+      else if (f.isQuad) arr.push(f.root);
+      else arr.push(f.root);
+  });
+
   const isS = ns === '>' || ns === '<';
   const wP = ns === '>' || ns === '>=';
   const signs = cfg.signIntervals || intervalSigns(activeFactors, roots, rootsMap);
@@ -1014,14 +1036,15 @@ function buildSBS(cfg){
 
   const dotAnswers = roots.map(r => {
     const pow = rootsMap[r.toFixed(4)] || 1;
-    const isDen = denRoots.some(d => Math.abs(d-r) < 1e-5);
+    const isDen = denRootsArr.some(d => Math.abs(d-r) < 1e-5);
     return {r, fill: isS || isDen ? 'open' : 'filled', shape: pow%2===0 ? 'diamond' : 'circle', isDen};
   });
 
   area._sbsState = {
-    areaId: cfg.areaId, factors, normFactors, activeFactors, roots, rootsMap, ineqSign, sol, denRoots, 
+    areaId: cfg.areaId, factors, normFactors, activeFactors, roots, rootsMap, ineqSign, sol, 
     intervals, wantPlus: wP, isStrict: isS, dotAnswers, dotSelFill: {}, signAnswers: {},
-    hasNegLead, hasQuads, currentSign: ns
+    hasNegLead, hasQuads, currentSign: ns, 
+    bqT1: cfg.bqT1, bqT2: cfg.bqT2
   };
 
   let stepCounter = 0;
@@ -1085,12 +1108,28 @@ function buildSBS(cfg){
     </div>`;
   }
 
+  // ── S_BQ: Корени на t (само за биквадратни) ──
+  if (cfg.isBiquad) {
+      stepCounter++;
+      html += `<div class="sbs-step" id="${cfg.areaId}-sbq">
+          <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Намери корените на квадратното уравнение спрямо t</div>
+          <div class="sbs-hint">Уравнението е <b>${cfg.bqQuadExpr} = 0</b>. Въведи стойностите за t₁ и t₂.</div>
+          <div class="root-rows" style="flex-direction:row; flex-wrap:wrap;">
+              <div class="input-wrap"><span class="x-lbl">t₁ =</span><input class="sbs-input" id="${cfg.areaId}-t-0" inputmode="decimal" onfocus="focusNum('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')checkSBQ('${cfg.areaId}')"></div>
+              <div class="input-wrap"><span class="x-lbl">t₂ =</span><input class="sbs-input" id="${cfg.areaId}-t-1" inputmode="decimal" onfocus="focusNum('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')checkSBQ('${cfg.areaId}')"></div>
+          </div>
+          ${renderNumKbd(cfg.areaId, 'sbq')}
+          <div style="margin-top:10px;"><button class="btn btn-ok" id="${cfg.areaId}-btn-sbq" onclick="checkSBQ('${cfg.areaId}')">✔ Провери</button><span id="${cfg.areaId}-sbq-fb"></span></div>
+      </div>`;
+  }
+
   // ── S3: Корени на линейните множители ──
   stepCounter++;
-  const s3Display = (hasNegLead || hasQuads) ? 'none' : 'block';
+  const s3Display = (hasNegLead || hasQuads || cfg.isBiquad) ? 'none' : 'block';
+  const s3Hint = cfg.isBiquad ? `Върни се към x чрез x² = t. За t < 0 няма реални корени. За t ≥ 0: x = ±√t.` : `Въведи всички уникални стойности на x, при които линейните множители стават нула.`;
   html += `<div class="sbs-step" id="${cfg.areaId}-s3" style="display:${s3Display}">
-      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Намери корените</div>
-      <div class="sbs-hint">Въведи всички уникални стойности на x, при които линейните множители стават нула.</div>
+      <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Намери корените ${cfg.isBiquad ? 'спрямо x' : ''}</div>
+      <div class="sbs-hint">${s3Hint}</div>
       <div class="root-rows" style="flex-direction:row; flex-wrap:wrap;">
         ${roots.length ? roots.map((r, ri) => `<div class="input-wrap"><span class="x-lbl">x =</span><input class="sbs-input" id="${cfg.areaId}-ri-${ri}" inputmode="decimal" onfocus="focusNum('${cfg.areaId}', this)" onkeydown="if(event.key==='Enter')checkS3('${cfg.areaId}')"></div>`).join('') : '<div style="color:var(--text3);font-style:italic;">Няма реални корени.</div>'}
       </div>
@@ -1099,11 +1138,15 @@ function buildSBS(cfg){
     </div>`;
 
   // ── S4a: Допустими стойности (ако е дробно) ──
-  if (denRoots.length > 0) {
+  if (denRootsArr.length > 0) {
       stepCounter++;
       html += `<div class="sbs-step" id="${cfg.areaId}-s4a" style="display:none">
           <div class="sbs-step-title"><div class="sbs-num">${stepCounter}</div>Допустими стойности</div>
-          ${roots.map((r,ri)=>`<div class="qdlg-q" style="margin-bottom:8px;"><span class="qdlg-icon">🔍</span><div class="qdlg-text"><b><i>x</i> = ${fmtSqrtR(r)}:</b> <select class="qdlg-sel" id="${cfg.areaId}-od-sel-${ri}"><option value="">— избери —</option><option value="den">нула на знаменателя → изключена</option><option value="num">нула на числителя → допустима</option><option value="both">и на двете</option></select> <button class="qdlg-btn" onclick="checkS4aItem('${cfg.areaId}',${ri},${denRoots.some(d=>Math.abs(d-r)<1e-5)})">→</button> <span id="${cfg.areaId}-od-fb-${ri}"></span></div></div>`).join('')}
+          ${roots.map((r,ri)=>{
+              let inNum = numRootsArr.some(nr => Math.abs(nr - r) < 1e-5);
+              let inDen = denRootsArr.some(dr => Math.abs(dr - r) < 1e-5);
+              return `<div class="qdlg-q" style="margin-bottom:8px;"><span class="qdlg-icon">🔍</span><div class="qdlg-text"><b><i>x</i> = ${fmtSqrtR(r)}:</b> <select class="qdlg-sel" id="${cfg.areaId}-od-sel-${ri}"><option value="">— избери —</option><option value="den">нула на знаменателя → изключена</option><option value="num">нула на числителя → допустима</option><option value="both">и на двете</option></select> <button class="qdlg-btn" onclick="checkS4aItem('${cfg.areaId}',${ri},${inNum},${inDen})">→</button> <span id="${cfg.areaId}-od-fb-${ri}"></span></div></div>`;
+          }).join('')}
           <button class="btn btn-ok" id="${cfg.areaId}-btn-s4a" style="display:none;" onclick="checkS4a('${cfg.areaId}')">Продължи →</button>
       </div>`;
   }
@@ -1142,7 +1185,7 @@ function buildSBS(cfg){
 /* ── KBD Builders ── */
 function renderKbd(aid, step, roots=[]) {
     let kbd = `<div class="math-kbd">
-        ${step==='s6'?`<button onclick="ki('${aid}','${step}','(')"><b>(</b></button><button onclick="ki('${aid}','${step}',')')"><b>)</b></button><button onclick="ki('${aid}','${step}','[')"><b>[</b></button><button onclick="ki('${aid}','${step}',']')"><b>]</b></button><button onclick="ki('${aid}','${step}','{')"><b>{</b></button><button onclick="ki('${aid}','${step}','}')"><b>}</b></button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','; ')"><b>;</b></button><button onclick="ki('${aid}','${step}',' ∪ ')"><b>∪</b></button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','−∞')"><b>−∞</b></button><button onclick="ki('${aid}','${step}','+∞')"><b>+∞</b></button><div class="kbd-sep"></div>${roots.map(r=>`<button onclick="ki('${aid}','${step}','${fmtR(r)}')">${fmtR(r)}</button>`).join('')}`
+        ${step==='s6'?`<button onclick="ki('${aid}','${step}','(')"><b>(</b></button><button onclick="ki('${aid}','${step}',')')"><b>)</b></button><button onclick="ki('${aid}','${step}','[')"><b>[</b></button><button onclick="ki('${aid}','${step}',']')"><b>]</b></button><button onclick="ki('${aid}','${step}','{')"><b>{</b></button><button onclick="ki('${aid}','${step}','}')"><b>}</b></button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','; ')"><b>;</b></button><button onclick="ki('${aid}','${step}',' ∪ ')"><b>∪</b></button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','−∞')"><b>−∞</b></button><button onclick="ki('${aid}','${step}','+∞')"><b>+∞</b></button><div class="kbd-sep"></div>${roots.map(r=>`<button onclick="ki('${aid}','${step}','${fmtSqrtR(r)}')">${fmtSqrtR(r)}</button>`).join('')}`
         :`<button onclick="ki('${aid}','${step}','x')"><i>x</i></button><button onclick="ki('${aid}','${step}','(')">(</button><button onclick="ki('${aid}','${step}',')')">)</button><button onclick="ki('${aid}','${step}','+')">+</button><button onclick="ki('${aid}','${step}','/')">/</button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','²')">²</button><button onclick="ki('${aid}','${step}','³')">³</button><button onclick="ki('${aid}','${step}','⁴')">⁴</button><button onclick="ki('${aid}','${step}','⁵')">⁵</button><button onclick="ki('${aid}','${step}','⁶')">⁶</button><button onclick="ki('${aid}','${step}','⁷')">⁷</button><button onclick="ki('${aid}','${step}','⁸')">⁸</button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','>')">&gt;</button><button onclick="ki('${aid}','${step}','<')">&lt;</button><button onclick="ki('${aid}','${step}','≥')">&ge;</button><button onclick="ki('${aid}','${step}','≤')">&le;</button><div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','0')">0</button>${[1,2,3,4,5,6,7,8,9].map(d=>`<button onclick="ki('${aid}','${step}','${d}')">${d}</button>`).join('')}<button onclick="ki('${aid}','${step}',',')">,</button>`}
         <div class="kbd-sep"></div><button onclick="ki('${aid}','${step}','−')">−</button><button class="kbd-del" onclick="kd('${aid}','${step}')">⌫</button><button class="kbd-del" onclick="kc('${aid}','${step}')">Изчисти</button>
     </div>`;
@@ -1151,7 +1194,7 @@ function renderKbd(aid, step, roots=[]) {
 function renderNumKbd(aid, suffix='') {
     return `<div class="math-kbd num-kbd" id="${aid}-numkbd${suffix}" style="display:none; justify-content:center; margin-bottom:10px;">
         <button onclick="kiNum('${aid}','1')">1</button><button onclick="kiNum('${aid}','2')">2</button><button onclick="kiNum('${aid}','3')">3</button><button onclick="kiNum('${aid}','4')">4</button><button onclick="kiNum('${aid}','5')">5</button><button onclick="kiNum('${aid}','6')">6</button><button onclick="kiNum('${aid}','7')">7</button><button onclick="kiNum('${aid}','8')">8</button><button onclick="kiNum('${aid}','9')">9</button><button onclick="kiNum('${aid}','0')">0</button>
-        <div class="kbd-sep"></div><button onclick="kiNum('${aid}','−')">−</button><button onclick="kiNum('${aid}','/')">/</button><button onclick="kiNum('${aid}',',')">,</button><button class="kbd-del" onclick="kdNum('${aid}')">⌫</button>
+        <div class="kbd-sep"></div><button onclick="kiNum('${aid}','−')">−</button><button onclick="kiNum('${aid}','/')">/</button><button onclick="kiNum('${aid}',',')">,</button><button onclick="kiNum('${aid}','√')">√</button><button class="kbd-del" onclick="kdNum('${aid}')">⌫</button>
     </div>`;
 }
 
@@ -1344,6 +1387,32 @@ function checkS2(aid) {
     }
 }
 
+function checkSBQ(aid) {
+    const st = document.getElementById(aid)._sbsState;
+    const inp0 = document.getElementById(`${aid}-t-0`);
+    const inp1 = document.getElementById(`${aid}-t-1`);
+    if (!inp0 || !inp1) return;
+    
+    let v0 = parseInputRoot(inp0.value);
+    let v1 = parseInputRoot(inp1.value);
+    
+    let t1 = st.bqT1, t2 = st.bqT2;
+    let good = (Math.abs(v0 - t1) < 0.01 && Math.abs(v1 - t2) < 0.01) || (Math.abs(v0 - t2) < 0.01 && Math.abs(v1 - t1) < 0.01);
+    
+    inp0.classList.toggle('ok', good); inp0.classList.toggle('err', !good && inp0.value !== '');
+    inp1.classList.toggle('ok', good); inp1.classList.toggle('err', !good && inp1.value !== '');
+    
+    const fb = document.getElementById(`${aid}-sbq-fb`);
+    if (good) {
+        fb.innerHTML = '<span style="color:var(--success);font-weight:bold;margin-left:10px;">✅ Вярно! Сега премини към x.</span>';
+        document.getElementById(`${aid}-btn-sbq`).classList.add('hidden');
+        document.getElementById(`${aid}-s3`).style.display = 'block';
+        document.querySelectorAll(`#${aid} .num-kbd`).forEach(k => k.style.display='none');
+    } else {
+        fb.innerHTML = '<span style="color:var(--danger);font-weight:bold;margin-left:10px;">❌ Грешни корени за t.</span>';
+    }
+}
+
 function checkS3(aid) {
     const st = document.getElementById(aid)._sbsState;
     if (st.roots.length === 0) { openS4(aid); return; }
@@ -1380,14 +1449,20 @@ function checkS3(aid) {
 
 function openS4(aid) {
     const st = document.getElementById(aid)._sbsState;
-    if (st.denRoots && st.denRoots.length > 0) document.getElementById(`${aid}-s4a`).style.display = 'block';
+    let hasDen = false;
+    st.factors.forEach(f => { if(f.isDen && !f.noRoot) hasDen = true; });
+    if (hasDen) document.getElementById(`${aid}-s4a`).style.display = 'block';
     else document.getElementById(`${aid}-s4b`).style.display = 'block';
 }
 
-function checkS4aItem(aid, ri, isDen) {
+function checkS4aItem(aid, ri, inNum, inDen) {
     const sel = document.getElementById(`${aid}-od-sel-${ri}`);
     const fb = document.getElementById(`${aid}-od-fb-${ri}`);
-    const correct = isDen ? (sel.value==='den'||sel.value==='both') : sel.value==='num';
+    let correct = false;
+    if (inNum && inDen) correct = (sel.value === 'both');
+    else if (inDen) correct = (sel.value === 'den');
+    else if (inNum) correct = (sel.value === 'num');
+    
     sel.classList.toggle('correct', correct); sel.classList.toggle('wrong', !correct);
     fb.textContent = correct ? '✅' : '❌';
     
@@ -1666,7 +1741,21 @@ function toggleBQSBS(){
   document.getElementById('bq-btn-sbs').innerHTML=bqSBSOpen?'⬆ Стъпка по стъпка':'📋 Стъпка по стъпка';
   if(bqSBSOpen){
     area.classList.remove('hidden');const st=computeBQState();
-    buildSBS({areaId:'bq-sbs',exprHTML:BQ.exprHTML,factors:st.sbsFactors,roots:st.xRoots,rootsMap:st.rootsMap,ineqSign:BQ.ineqSign,sol:st.sol,signIntervals:st.signs,quadNote:`<b>Метод:</b> Полагаме <i>t = x²</i> (t ≥ 0). Корените по <i>t</i> са ${BQ.t1} и ${BQ.t2}. Връщаме се към <i>x</i> само за неотрицателните стойности.`});
+    buildSBS({
+      areaId:'bq-sbs',
+      exprHTML:BQ.exprHTML,
+      factors:st.sbsFactors,
+      roots:st.xRoots,
+      rootsMap:st.rootsMap,
+      ineqSign:BQ.ineqSign,
+      sol:st.sol,
+      signIntervals:st.signs,
+      quadNote:`<b>Метод:</b> Полагаме <i>t = x²</i> (t ≥ 0).`,
+      isBiquad: true,
+      bqT1: BQ.t1,
+      bqT2: BQ.t2,
+      bqQuadExpr: formatQuad(BQ.A, BQ.B, BQ.C).replace(/<i>x<\/i>/g, '<i>t</i>')
+    });
   } else area.classList.add('hidden');
 }
 
@@ -1674,18 +1763,102 @@ function toggleBQSBS(){
 let FRAC={};
 function genFractional(){
   hideMenu();
-  const numC=parseInt(document.getElementById('frac-num').value), denC=parseInt(document.getElementById('frac-den').value);
-  const _fs=document.getElementById('frac-sign').value, ineqSign=_fs==='random'?['>','<','>=','<='][ri(0,3)]:_fs;
-  let allRoots=[];for(let i=0;i<numC+denC;i++){let r=ri(-7,7);while(allRoots.includes(r))r=ri(-7,7);allRoots.push(r);}
-  allRoots.sort((a,b)=>a-b);
-  let denRoots=[], temp=[...allRoots];for(let i=0;i<denC;i++){denRoots.push(temp.splice(ri(0,temp.length-1),1)[0]);}
-  let numFactors=temp.map(r=>({a:1,b:-r,power:1,root:r,isDen:false})), denFactors=denRoots.map(r=>({a:1,b:-r,power:1,root:r,isDen:true}));
-  let factors=[...numFactors,...denFactors];
-  const rootsMap={};factors.forEach(f=>rootsMap[f.root.toFixed(4)]=1);
-  const signs=intervalSigns(factors,allRoots,rootsMap), sol=buildSol(allRoots,signs,ineqSign,denRoots,rootsMap);
-  FRAC={numFactors,denFactors,factors,roots:allRoots,rootsMap,ineqSign,sol,signs,denRoots};
+  const numC=parseInt(document.getElementById('frac-num').value);
+  const denC=parseInt(document.getElementById('frac-den').value);
+  const hasQNum = document.getElementById('frac-qnum').checked;
+  const hasQDen = document.getElementById('frac-qden').checked;
+  const _fs=document.getElementById('frac-sign').value;
+  const ineqSign=_fs==='random'?['>','<','>=','<='][ri(0,3)]:_fs;
+
+  let baseRoots=[];
+  for(let i=0;i<numC+denC;i++){
+      let r=ri(-7,7);
+      while(baseRoots.includes(r)) r=ri(-7,7);
+      baseRoots.push(r);
+  }
+  
+  let numFactors=[], denFactors=[];
+  let temp=[...baseRoots];
+  
+  for(let i=0;i<denC;i++){
+      let r = temp.splice(ri(0,temp.length-1),1)[0];
+      denFactors.push({a:1,b:-r,power:1,root:r,isDen:true});
+  }
+  for(let r of temp){
+      numFactors.push({a:1,b:-r,power:1,root:r,isDen:false});
+  }
+
+  function createQuad(isDen) {
+      let forceOverlap = ri(1, 3) === 1; // 33% шанс
+      let a = ri(0,1)===0 ? 1 : -1;
+      let qType = ['pos', 'zero', 'neg'][ri(0,2)];
+
+      // Ако искаме съвпадение, най-лесно е D > 0, за да има поне един сигурен съвпадащ корен, а другият да е различен
+      if (forceOverlap && baseRoots.length > 0) qType = 'pos'; 
+
+      if (qType === 'pos') {
+          let r1, r2;
+          if (forceOverlap && baseRoots.length > 0) {
+              r1 = baseRoots[ri(0, baseRoots.length-1)];
+              r2 = ri(-6, 6);
+              while(r2 === r1) r2 = ri(-6, 6);
+          } else {
+              r1 = ri(-5, 5); r2 = ri(-5, 5);
+              while(r1 === r2) r2 = ri(-5, 5);
+          }
+          let b = -a*(r1 + r2), c = a*r1*r2;
+          return {a: a, b: 0, power: 1, isQuadWithTwoRoots: true, r1: r1, r2: r2, qA: a, qB: b, qC: c, quadExpr: formatQuad(a,b,c), isDen};
+      } else if (qType === 'zero') {
+          let r = ri(-4, 4);
+          if (forceOverlap && baseRoots.length > 0) r = baseRoots[ri(0, baseRoots.length-1)];
+          let b = -2*a*r, c = a*r*r;
+          return {a: a, b: 0, power: 2, root: r, isQuad: true, qA: a, qB: b, qC: c, quadExpr: formatQuad(a,b,c), isDen};
+      } else {
+          let r = ri(-3, 3), k = a * ri(1, 4), b = -2*a*r, c = a*r*r + k;
+          return {a: a, b: 0, power: 1, noRoot: true, qA: a, qB: b, qC: c, quadExpr: formatQuad(a,b,c), isDen};
+      }
+  }
+
+  if(hasQNum) numFactors.push(createQuad(false));
+  if(hasQDen) denFactors.push(createQuad(true));
+
+  let factors = [...numFactors, ...denFactors];
+  
+  let rawAllRoots = [], rawDenRoots = [];
+  const rootsMap = {};
+  
+  factors.forEach(f => {
+      if (f.noRoot) return;
+      if (f.isQuadWithTwoRoots) { 
+          rootsMap[f.r1.toFixed(4)] = (rootsMap[f.r1.toFixed(4)]||0) + 1;
+          rootsMap[f.r2.toFixed(4)] = (rootsMap[f.r2.toFixed(4)]||0) + 1;
+          rawAllRoots.push(f.r1, f.r2);
+          if (f.isDen) rawDenRoots.push(f.r1, f.r2);
+      } else {
+          rootsMap[f.root.toFixed(4)] = (rootsMap[f.root.toFixed(4)]||0) + f.power;
+          rawAllRoots.push(f.root);
+          if (f.isDen) rawDenRoots.push(f.root);
+      }
+  });
+
+  const uniqueAllRoots = [...new Set(rawAllRoots.map(r=>parseFloat(r.toFixed(4))))].sort((x,y)=>x-y);
+  const uniqueDenRoots = [...new Set(rawDenRoots.map(r=>parseFloat(r.toFixed(4))))];
+  
+  const signs = intervalSigns(factors, uniqueAllRoots, rootsMap);
+  
+  let tSign = 1; 
+  factors.forEach(f => { 
+      if (f.quadExpr) { if(f.qA < 0) tSign*=-1; } 
+      else { if(f.a < 0) tSign*=Math.pow(-1, f.power||1); } 
+  });
+  let effSign = tSign < 0 ? ({'>=':'<=','<=':'>=','>':'<','<':'>'}[ineqSign]) : ineqSign;
+  let sol = buildSol(uniqueAllRoots, signs, effSign, uniqueDenRoots, rootsMap);
+
+  FRAC = {numFactors, denFactors, factors, roots: uniqueAllRoots, rootsMap, ineqSign, sol, signs, denRoots: uniqueDenRoots};
+  
   document.getElementById('frac-expr').innerHTML=fmtFrac(numFactors,denFactors)+` <span style="font-style:normal;">${SIGNS[ineqSign]}</span> 0`;
-  document.getElementById('frac-problem').classList.remove('hidden');document.getElementById('frac-answer-area').classList.add('hidden');
+  document.getElementById('frac-problem').classList.remove('hidden');
+  document.getElementById('frac-answer-area').classList.add('hidden');
   document.getElementById('frac-sbs').classList.add('hidden');
 
   const btnAns = document.getElementById('frac-btn-ans');
@@ -1697,11 +1870,14 @@ function showFracAnswer(){
   if(document.getElementById('frac-btn-ans').innerHTML.includes('Следваща')) return genFractional();
   SCORE.taskPts = 0; scoreTaskDone(false);
   
-  let tSign = 1; FRAC.factors.forEach(f => { if(f.a < 0) tSign*=Math.pow(-1, f.power||1); });
+  let tSign = 1; FRAC.factors.forEach(f => { 
+      if (f.quadExpr) { if(f.qA < 0) tSign*=-1; } 
+      else { if(f.a < 0) tSign*=Math.pow(-1, f.power||1); } 
+  });
   let effSign = tSign < 0 ? ({'>=':'<=','<=':'>=','>':'<','<':'>'}[FRAC.ineqSign]) : FRAC.ineqSign;
   const isS=effSign==='>'||effSign==='<';
   
-  drawNL('frac-nl',FRAC.roots.map(r=>({val:r,open:isS||FRAC.denRoots.includes(r),shape:'circle'})),FRAC.signs);
+  drawNL('frac-nl',FRAC.roots.map(r=>({val:r,open:isS||FRAC.denRoots.includes(r),shape:(FRAC.rootsMap[r.toFixed(4)]||1)%2===0?'diamond':'circle'})),FRAC.signs);
   document.getElementById('frac-ans-text').innerHTML=FRAC.sol;
   document.getElementById('frac-answer-area').classList.remove('hidden');
   document.getElementById('frac-btn-sbs').classList.add('hidden');

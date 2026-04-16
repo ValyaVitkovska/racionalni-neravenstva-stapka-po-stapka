@@ -650,13 +650,14 @@ function genCurrentType() {
 function normalizeAnswer(s){
   s=s.replace(/^[xх]\s*[∈∊]\s*/i,'').replace(/–/g,'-').replace(/\+∞/g,'+inf').replace(/[−-]∞/g,'-inf').replace(/∞/g,'inf').replace(/−/g,'-');
   s=s.replace(/(\d),(\d)/g, '$1.$2');
-  s=s.replace(/\{([^}]+)\}/g,(match,inside)=>{ return inside.split(';').map(v=>{const n=v.trim();return n?`[${n};${n}]`:'';}).filter(Boolean).join('U'); });
-  s=s.replace(/\s+/g,'').replace(/∪/g,'U').toLowerCase();
+  s=s.replace(/\{([^}]+)\}/g,(match,inside)=>{ return inside.split(';').map(v=>{const n=v.trim();return n?`[${n};${n}]`:'';}).filter(Boolean).join('u'); });
+  s=s.replace(/\s+/g,'').replace(/∪/g,'u').replace(/U/g,'u').toLowerCase();
   return _mergeAdjacentIntervals(s);
 }
 function _mergeAdjacentIntervals(s){
-  const parts=s.split('U').map(p=>p.trim()).filter(Boolean);
-  if(parts.length<2)return s;
+  const parts=s.split('u').map(p=>p.trim()).filter(Boolean);
+  if(parts.length===0)return s;
+  
   function parseInterval(p){
     const m=p.match(/^([\[({])([-+\d.infnan/]+);([-+\d.infnan/]+)([\])}])$/i);
     if(!m)return null;
@@ -671,7 +672,10 @@ function _mergeAdjacentIntervals(s){
     }
     return{lo:pN(m[2]),hi:pN(m[3]),loOpen:m[1]==='('||m[1]==='{',hiOpen:m[4]===')'||m[4]==='}'};
   }
-  const parsed=parts.map(parseInterval);if(parsed.some(p=>p===null))return s;
+  
+  const parsed=parts.map(parseInterval);
+  if(parsed.some(p=>p===null)) return s;
+  
   parsed.sort((a,b)=>a.lo-b.lo||(a.loOpen?1:-1));
   const merged=[Object.assign({},parsed[0])];
   for(let i=1;i<parsed.length;i++){
@@ -680,9 +684,11 @@ function _mergeAdjacentIntervals(s){
       if(cur.hi>last.hi||(Math.abs(cur.hi-last.hi)<1e-9&&!cur.hiOpen)){last.hi=cur.hi;last.hiOpen=cur.hiOpen;}
     }else merged.push(Object.assign({},cur));
   }
+  
   function fN(v) {
       if(v===-Infinity) return '-inf';
       if(v===Infinity) return 'inf';
+      if(Number.isInteger(v)) return String(v);
       for(let d=2; d<=10; d++) {
          if(Math.abs(Math.abs(v) - Math.round(Math.abs(v)*d)/d) < 1e-9) {
              return (v<0?'-':'') + Math.round(Math.abs(v)*d) + '/' + d;
@@ -690,7 +696,7 @@ function _mergeAdjacentIntervals(s){
       }
       return parseFloat(v.toFixed(4)).toString();
   }
-  return merged.map(({lo,hi,loOpen,hiOpen})=>`${loOpen?'(':'['}${fN(lo)};${fN(hi)}${hiOpen?')':']'}`).join('U');
+  return merged.map(({lo,hi,loOpen,hiOpen})=>`${loOpen?'(':'['}${fN(lo)};${fN(hi)}${hiOpen?')':']'}`).join('u');
 }
 
 /* ── Scoring & Timer engine ── */
